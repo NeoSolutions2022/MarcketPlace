@@ -61,7 +61,7 @@ public class AuthService : BaseService, IAuthService
                 new Claim(ClaimTypes.NameIdentifier, administrador.Id.ToString()),
                 new Claim(ClaimTypes.Name, administrador.Nome),
                 new Claim(ClaimTypes.Email, administrador.Email),
-                new Claim("TipoUsuario", ETipoUsuario.Comum.ToDescriptionString())
+                new Claim("TipoUsuario", ETipoUsuario.Administrador.ToDescriptionString())
             }),
             Expires = DateTime.UtcNow.AddHours(2),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
