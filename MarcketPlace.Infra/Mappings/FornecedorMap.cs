@@ -42,5 +42,11 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Senha)
             .IsRequired()
             .HasMaxLength(255);
+
+        builder
+            .HasMany(c => c.ProdutoServicos)
+            .WithOne(c => c.Fornecedor)
+            .HasForeignKey(c => c.FornecedorId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

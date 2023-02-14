@@ -5,7 +5,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var  myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 //Melhorar os logs
 builder
@@ -44,7 +44,7 @@ builder.Services.AddOpenTelemetryTracingConfig(builder.Configuration);
 // Add CORs
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(name: myAllowSpecificOrigins,
         policy  =>
         {
             policy.AllowAnyOrigin()
@@ -69,7 +69,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseMigrations(app.Services);
 
