@@ -39,6 +39,8 @@ public static class DependencyInjection
 
         services
             .AddScoped<IAuthService, AuthService>()
+            .AddScoped<IProdutoServicoService, ProdutoServicoService>()
+            .AddScoped<IFileService, FileService>()
             .AddScoped<INotificator, Notificator>()
             .AddScoped<IPasswordHasher<Administrador>, Argon2PasswordHasher<Administrador>>();
     }
