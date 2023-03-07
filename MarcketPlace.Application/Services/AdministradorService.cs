@@ -136,7 +136,7 @@ public class AdministradorService : BaseService, IAdministradorService
             return;
         }
         
-        Notificator.Handle("Não foi possível desativar o administrador");
+        Notificator.Handle("Não foi possível reativar o administrador");
     }
 
     private async Task<bool> Validar(Administrador administrador)

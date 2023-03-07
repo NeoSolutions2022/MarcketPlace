@@ -35,11 +35,16 @@ public static class DependencyInjection
     public static void ConfigureServices(this IServiceCollection services)
     {
         services
+            .AddScoped<IClienteService, ClienteService>()
+            .AddScoped<IFornecedorService, FornecedorService>()
             .AddScoped<IAdministradorService, AdministradorService>();
 
         services
             .AddScoped<IAuthService, AuthService>()
+            .AddScoped<IUsuarioAuthService, UsuarioAuthService>()
             .AddScoped<INotificator, Notificator>()
+            .AddScoped<IPasswordHasher<Cliente>, Argon2PasswordHasher<Cliente>>()
+            .AddScoped<IPasswordHasher<Fornecedor>, Argon2PasswordHasher<Fornecedor>>()
             .AddScoped<IPasswordHasher<Administrador>, Argon2PasswordHasher<Administrador>>();
     }
     

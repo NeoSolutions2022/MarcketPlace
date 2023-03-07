@@ -47,7 +47,6 @@
 
     <ItemGroup>
       <Folder Include="Controllers\V1\Administracao" />
-      <Folder Include="Controllers\V1\Configuracoes" />
     </ItemGroup>
 
 </Project>

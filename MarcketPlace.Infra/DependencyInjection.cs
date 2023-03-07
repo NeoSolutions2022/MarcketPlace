@@ -46,6 +46,8 @@ public static class DependencyInjection
     public static void ConfigureRepositories(this IServiceCollection service)
     {
         service
+            .AddScoped<IClienteRepository,ClienteRepository>()
+            .AddScoped<IFornecedorRepository, FornecedorRepository>()
             .AddScoped<IAdministradorRepository, AdministradorRepository>();
     }
 
