@@ -50,5 +50,5 @@ jobs:
         with:
           app-name: 'MarketPlaceNeoCode'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C9137F3591114B0EA8FB20D3869CA0BA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E3318128FD54F4484BC5AE3DF718D3B }}
           package: .
