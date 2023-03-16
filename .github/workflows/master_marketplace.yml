@@ -48,7 +48,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'MarketPlaceNeoCode'
+          app-name: 'Marketplace'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E3318128FD54F4484BC5AE3DF718D3B }}
           package: .
