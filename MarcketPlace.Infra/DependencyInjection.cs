@@ -25,14 +25,12 @@ public static class DependencyInjection
                 ? new AuthenticatedUser(httpContextAccessor)
                 : new AuthenticatedUser();
         });
-        
-        service.AddDbContext<ApplicationDbContext>(options =>
+
+        service.AddDbContext<ApplicationDbContext>(optionsAction =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            var serverVersion = ServerVersion.AutoDetect(connectionString);
-            options.UseMySql(connectionString, serverVersion);
-            options.EnableDetailedErrors();
-            options.EnableSensitiveDataLogging();
+            optionsAction.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            optionsAction.EnableDetailedErrors();
+            optionsAction.EnableSensitiveDataLogging();
         });
         
         service.AddScoped<BaseApplicationDbContext>(serviceProvider =>
