@@ -33,7 +33,7 @@ public static class ModelBuilderExtension
     
         foreach (var prop in dataProps)
         {
-            prop.SetColumnType("timestamp");
+            prop.SetColumnType("DATE");
             prop.SetDefaultValueSql("CURRENT_TIMESTAMP");
         }
         
