@@ -7,5 +7,7 @@ public enum EUploadPath
     [Description("foto-fornecedor")]
     FotoFornecedor,
     [Description("foto-cliente")]
-    FotoCliente
+    FotoCliente,
+    [Description("foto-cliente")]
+    FotoProdutoServico
 }
