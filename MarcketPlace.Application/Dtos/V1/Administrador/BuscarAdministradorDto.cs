@@ -5,8 +5,8 @@ namespace MarcketPlace.Application.Dtos.V1.Administrador;
 
 public class BuscarAdministradorDto : BuscaPaginadaDto<Domain.Entities.Administrador>
 {
-    public string? Nome { get; set; } = null!;
-    public string? Email { get; set; } = null!;
+    public string? Nome { get; set; }
+    public string? Email { get; set; }
 
     public override void AplicarFiltro(ref IQueryable<Domain.Entities.Administrador> query)
     {
