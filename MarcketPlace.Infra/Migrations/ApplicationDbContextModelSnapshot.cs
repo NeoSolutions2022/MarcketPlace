@@ -33,7 +33,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("AtualizadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("AtualizadoPor")
@@ -46,7 +46,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("CriadoPor")
@@ -92,7 +92,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("AtualizadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("AtualizadoPor")
@@ -110,7 +110,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("CriadoPor")
@@ -172,7 +172,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("AtualizadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("AtualizadoPor")
@@ -194,7 +194,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("DATE")
+                        .HasColumnType("datetime")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.Property<int?>("CriadoPor")
