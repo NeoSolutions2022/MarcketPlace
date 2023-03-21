@@ -34,7 +34,7 @@ public static class ModelBuilderExtension
         foreach (var prop in dataProps)
         {
             prop.SetColumnType("DATETIME");
-            prop.SetDefaultValueSql("CURRENT_TIMESTAMP");
+            prop.SetDefaultValueSql("SYSDATETIME()");
         }
         
         var idProps = entidades
