@@ -49,7 +49,7 @@ public abstract class BaseApplicationDbContext : DbContext, IUnitOfWork
     {
         modelBuilder.Ignore<ValidationResult>();
         modelBuilder.ApplyEntityConfiguration();
-        modelBuilder.ApplyTrackingConfiguration();
+        // modelBuilder.ApplyTrackingConfiguration();
         modelBuilder.ApplySoftDeleteConfiguration();
     }
 
