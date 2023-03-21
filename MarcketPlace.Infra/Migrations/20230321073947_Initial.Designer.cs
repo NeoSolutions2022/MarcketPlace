@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcketPlace.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230316221309_Initial")]
+    [Migration("20230321073947_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,33 +33,23 @@ namespace MarcketPlace.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte[]>("AtualizadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("AtualizadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("AtualizadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
-                    b.Property<byte[]>("CriadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CriadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("CriadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()
@@ -94,38 +84,28 @@ namespace MarcketPlace.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte[]>("AtualizadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("AtualizadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("AtualizadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
-                    b.Property<byte[]>("CriadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CriadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("CriadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DataPagamento")
                         .HasColumnType("datetime2");
@@ -176,19 +156,14 @@ namespace MarcketPlace.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte[]>("AtualizadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("AtualizadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("AtualizadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Cnpj")
                         .HasMaxLength(18)
@@ -199,19 +174,14 @@ namespace MarcketPlace.Infra.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
 
-                    b.Property<byte[]>("CriadoEm")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("CriadoPor")
                         .HasColumnType("int");
 
                     b.Property<bool>("CriadoPorAdmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()
