@@ -26,8 +26,7 @@ public abstract class BaseApplicationDbContext : DbContext, IUnitOfWork
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
-            .UseCollation("utf8mb4_0900_ai_ci");
+            .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
         ApplyConfiguration(modelBuilder);
         

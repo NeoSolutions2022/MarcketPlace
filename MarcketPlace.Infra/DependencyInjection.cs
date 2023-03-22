@@ -35,7 +35,7 @@ public static class DependencyInjection
         
         service.AddScoped<BaseApplicationDbContext>(serviceProvider =>
         {
-            var autenticatedUser = serviceProvider.GetRequiredService<IAuthenticatedUser>();
+            // var autenticatedUser = serviceProvider.GetRequiredService<IAuthenticatedUser>();
 
             return serviceProvider.GetRequiredService<ApplicationDbContext>();
         });
@@ -46,6 +46,7 @@ public static class DependencyInjection
         service
             .AddScoped<IClienteRepository,ClienteRepository>()
             .AddScoped<IFornecedorRepository, FornecedorRepository>()
+            .AddScoped<IProdutoServicoRepository, ProdutoServicoRepository>()
             .AddScoped<IAdministradorRepository, AdministradorRepository>();
     }
 

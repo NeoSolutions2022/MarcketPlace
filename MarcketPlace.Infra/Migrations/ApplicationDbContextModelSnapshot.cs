@@ -213,6 +213,77 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.ToTable("Fornecedores");
                 });
+
+            modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("AtualizadoPor")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("AtualizadoPorAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CriadoPor")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CriadoPorAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Desativado")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
+
+                    b.Property<int>("FornecedorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Foto")
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("nvarchar(180)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FornecedorId");
+
+                    b.ToTable("ProdutoServicos");
+                });
+
+            modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
+                {
+                    b.HasOne("MarcketPlace.Domain.Entities.Fornecedor", "Fornecedor")
+                        .WithMany("ProdutoServicos")
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Fornecedor");
+                });
+
+            modelBuilder.Entity("MarcketPlace.Domain.Entities.Fornecedor", b =>
+                {
+                    b.Navigation("ProdutoServicos");
+                });
 #pragma warning restore 612, 618
         }
     }

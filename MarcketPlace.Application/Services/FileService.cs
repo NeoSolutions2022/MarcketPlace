@@ -3,18 +3,14 @@ using Azure.Storage.Blobs;
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Notification;
 using MarcketPlace.Core.Enums;
-using MarcketPlace.Core.Settings;
 using Microsoft.AspNetCore.Http;
 
 namespace MarcketPlace.Application.Services;
 
 public class FileService : BaseService, IFileService
 {
-    private readonly UploadSettings _uploadSettings;
-    
-    public FileService(IMapper mapper, INotificator notificator, UploadSettings uploadSettings) : base(mapper, notificator)
+    public FileService(IMapper mapper, INotificator notificator) : base(mapper, notificator)
     {
-        _uploadSettings = uploadSettings;
     }
 
     public async Task<string> Upload(IFormFile arquivo, EUploadPath uploadPath)
