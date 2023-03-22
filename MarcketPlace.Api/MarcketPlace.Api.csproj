@@ -49,4 +49,8 @@
       <Folder Include="Controllers\V1\Administracao" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="bin\Debug\net6.0\Email\Templates\Usuario\CodigoResetarSenha.cshtml" />
+    </ItemGroup>
+
 </Project>

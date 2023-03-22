@@ -42,5 +42,17 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Senha)
             .IsRequired()
             .HasMaxLength(255);
+
+        builder
+            .Property(c => c.CodigoResetarSenha)
+            .HasColumnType("CHAR(64)")
+            .HasCharSet("utf8mb4")
+            .UseCollation("utf8mb4_0900_ai_ci")
+            .IsRequired(false);
+        
+        builder
+            .Property(c => c.CodigoResetarSenhaExpiraEm)
+            .HasColumnType("DATETIME")
+            .IsRequired(false);
     }
 }
