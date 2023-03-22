@@ -12,14 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcketPlace.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230322214359_Initial")]
+    [Migration("20230322220142_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_0900_ai_ci")
                 .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -92,6 +91,12 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<bool>("AtualizadoPorAdmin")
                         .HasColumnType("bit");
+
+                    b.Property<string>("CodigoResetarSenha")
+                        .HasColumnType("CHAR(64)");
+
+                    b.Property<DateTime?>("CodigoResetarSenhaExpiraEm")
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
@@ -168,6 +173,12 @@ namespace MarcketPlace.Infra.Migrations
                     b.Property<string>("Cnpj")
                         .HasMaxLength(18)
                         .HasColumnType("nvarchar(18)");
+
+                    b.Property<string>("CodigoResetarSenha")
+                        .HasColumnType("CHAR(64)");
+
+                    b.Property<DateTime?>("CodigoResetarSenhaExpiraEm")
+                        .HasColumnType("DATETIME");
 
                     b.Property<string>("Cpf")
                         .IsRequired()

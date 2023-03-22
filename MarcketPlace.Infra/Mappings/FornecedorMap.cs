@@ -52,8 +52,6 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
         builder
             .Property(c => c.CodigoResetarSenha)
             .HasColumnType("CHAR(64)")
-            .HasCharSet("utf8mb4")
-            .UseCollation("utf8mb4_0900_ai_ci")
             .IsRequired(false);
         
         builder

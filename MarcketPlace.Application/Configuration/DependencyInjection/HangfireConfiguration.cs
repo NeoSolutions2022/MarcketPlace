@@ -1,6 +1,5 @@
-﻿using System.Transactions;
-using Hangfire;
-using Hangfire.MySql;
+﻿using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,16 +11,13 @@ public static class HangfireConfiguration
     {
         var connectionString = configuration.GetConnectionString("HangfireConnection");
 
-        var mySqlStorage = new MySqlStorage(connectionString, new MySqlStorageOptions
+        var mySqlStorage = new SqlServerStorage(connectionString, new SqlServerStorageOptions()
         {
-            TransactionIsolationLevel = IsolationLevel.ReadCommitted,
-            QueuePollInterval = TimeSpan.FromSeconds(30),
-            JobExpirationCheckInterval = TimeSpan.FromHours(1),
-            CountersAggregateInterval = TimeSpan.FromMinutes(5),
-            PrepareSchemaIfNecessary = true,
-            DashboardJobListLimit = 50000,
-            TransactionTimeout = TimeSpan.FromMinutes(1),
-            TablesPrefix = null
+            CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+            SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+            QueuePollInterval = TimeSpan.Zero,
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true // Migration to Schema 7 is required
         });
 
         services.AddHangfire(config =>

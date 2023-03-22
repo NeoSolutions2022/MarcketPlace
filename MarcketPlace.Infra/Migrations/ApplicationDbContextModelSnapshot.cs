@@ -17,7 +17,6 @@ namespace MarcketPlace.Infra.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseCollation("utf8mb4_0900_ai_ci")
                 .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -71,7 +70,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Administradores");
+                    b.ToTable("Administradores", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.Cliente", b =>
@@ -92,10 +91,7 @@ namespace MarcketPlace.Infra.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("CodigoResetarSenha")
-                        .HasColumnType("CHAR(64)")
-                        .UseCollation("utf8mb4_0900_ai_ci");
-
-                    MySqlPropertyBuilderExtensions.HasCharSet(b.Property<string>("CodigoResetarSenha"), "utf8mb4");
+                        .HasColumnType("CHAR(64)");
 
                     b.Property<DateTime?>("CodigoResetarSenhaExpiraEm")
                         .HasColumnType("DATETIME");
@@ -152,7 +148,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.Fornecedor", b =>
@@ -177,10 +173,7 @@ namespace MarcketPlace.Infra.Migrations
                         .HasColumnType("nvarchar(18)");
 
                     b.Property<string>("CodigoResetarSenha")
-                        .HasColumnType("CHAR(64)")
-                        .UseCollation("utf8mb4_0900_ai_ci");
-
-                    MySqlPropertyBuilderExtensions.HasCharSet(b.Property<string>("CodigoResetarSenha"), "utf8mb4");
+                        .HasColumnType("CHAR(64)");
 
                     b.Property<DateTime?>("CodigoResetarSenhaExpiraEm")
                         .HasColumnType("DATETIME");
@@ -229,7 +222,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fornecedores");
+                    b.ToTable("Fornecedores", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
@@ -284,7 +277,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasIndex("FornecedorId");
 
-                    b.ToTable("ProdutoServicos");
+                    b.ToTable("ProdutoServicos", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
