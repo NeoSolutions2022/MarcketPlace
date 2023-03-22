@@ -34,7 +34,7 @@ public class UsuariosAuthController : BaseController
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LoginFornecedor([FromBody] LoginDto loginFornecedor)
     {
-        var token = await _usuarioAuthService.LoginCliente(loginFornecedor);
+        var token = await _usuarioAuthService.LoginFornecedor(loginFornecedor);
         return token != null ? OkResponse(token) : Unauthorized(new[] { "Usuário e/ou senha incorretos" });
     }
 }

@@ -108,4 +108,17 @@ public class FornecedoresController : MainController
         await _fornecedorService.Reativar(id);
         return NoContentResponse();
     }
+    
+    [HttpPost("{id}/resetar-senha")]
+    [SwaggerOperation(Summary = "Resetar a senha do Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ResetarSenha(int id)
+    {
+        await _fornecedorService.ResetarSenha(id);
+        return OkResponse();
+    }
 }

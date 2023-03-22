@@ -15,7 +15,7 @@ public class AutoMapperProfile : Profile
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AdministradorDto, Administrador>().ReverseMap();
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AdicionarAdministradorDto, Administrador>().ReverseMap();
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AlterarAdministradorDto, Administrador>().ReverseMap();
-        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Administrador.BuscarAdministradorDto>, ResultadoPaginado<Administrador>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Administrador.AdministradorDto>, ResultadoPaginado<Administrador>>().ReverseMap();
 
         #endregion
 
@@ -36,7 +36,7 @@ public class AutoMapperProfile : Profile
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
-        CreateMap<MarcketPlace.Application.Dtos.V1.Cliente.BuscarClienteDto, ResultadoPaginado<Cliente>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Cliente.ClienteDto>, ResultadoPaginado<Cliente>>().ReverseMap();
 
         #endregion
         
@@ -60,7 +60,7 @@ public class AutoMapperProfile : Profile
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
-        CreateMap<MarcketPlace.Application.Dtos.V1.Fornecedor.BuscarFornecedorDto, ResultadoPaginado<Fornecedor>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Fornecedor.FornecedorDto>, ResultadoPaginado<Fornecedor>>().ReverseMap();
 
         #endregion
     }

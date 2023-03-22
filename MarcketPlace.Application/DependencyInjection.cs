@@ -1,6 +1,9 @@
 ﻿using System.Net;
 using System.Reflection;
+using MarcketPlace.Application.BackgroundJob;
+using MarcketPlace.Application.Configuration.DependencyInjection;
 using MarcketPlace.Application.Contracts;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
 using MarcketPlace.Application.Services;
 using MarcketPlace.Core.Enums;
@@ -29,6 +32,10 @@ public static class DependencyInjection
         services.ConfigureRepositories();
 
         services
+            .AddEmailFactory(configuration);
+        services
+            .AddHangfireConfig(configuration);
+        services
             .AddAutoMapper(Assembly.GetExecutingAssembly());
     }
     
@@ -37,6 +44,8 @@ public static class DependencyInjection
         services
             .AddScoped<IClienteService, ClienteService>()
             .AddScoped<IFornecedorService, FornecedorService>()
+            .AddScoped<IBackgroundClient, BackgroundClient>()
+            .AddScoped<IEmailService, EmailService>()
             .AddScoped<IAdministradorService, AdministradorService>();
 
         services

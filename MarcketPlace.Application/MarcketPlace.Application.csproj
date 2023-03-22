@@ -11,7 +11,10 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="Azure.Core" Version="1.28.0" />
         <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+        <PackageReference Include="FluentEmail.MailKit" Version="3.0.2" />
         <PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
+        <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
         <PackageReference Include="FluentValidation" Version="11.2.2" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.32" />
         <PackageReference Include="Hangfire.Core" Version="1.7.32" />
@@ -32,6 +35,12 @@
     <ItemGroup>
       <ProjectReference Include="..\MarcketPlace.Core\MarcketPlace.Core.csproj" />
       <ProjectReference Include="..\MarcketPlace.Infra\MarcketPlace.Infra.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="FluentEmail.MailKit">
+            <HintPath>..\deps\FluentEmail.MailKit\FluentEmail.MailKit.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
