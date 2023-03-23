@@ -21,7 +21,11 @@ public abstract class Entity : BaseEntity, ITracking
 
 public abstract class EntityNotTracked : BaseEntity
 {
-    
+    public virtual bool Validar(out ValidationResult validationResult)
+    {
+        validationResult = new ValidationResult();
+        return validationResult.IsValid;
+    }
 }
 
 public abstract class BaseEntity : IEntity

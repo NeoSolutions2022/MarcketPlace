@@ -15,6 +15,8 @@ public class Cliente : Entity, ISoftDelete, IAggregateRoot
     public bool? Inadiplente { get; set; }
     public DateTime DataPagamento { get; set; }
     public bool Desativado { get; set; }
+    public Guid? CodigoResetarSenha { get; set; }
+    public DateTime? CodigoResetarSenhaExpiraEm { get; set; }
 
     public override bool Validar(out ValidationResult validationResult)
     {

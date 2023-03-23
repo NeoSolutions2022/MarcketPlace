@@ -18,13 +18,7 @@ namespace MarcketPlace.Infra.Migrations
                     Nome = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Desativado = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CriadoPor = table.Column<int>(type: "int", nullable: true),
-                    CriadoPorAdmin = table.Column<bool>(type: "bit", nullable: false),
-                    AtualizadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AtualizadoPor = table.Column<int>(type: "int", nullable: true),
-                    AtualizadoPorAdmin = table.Column<bool>(type: "bit", nullable: false)
+                    Desativado = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -46,6 +40,8 @@ namespace MarcketPlace.Infra.Migrations
                     Inadiplente = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
                     DataPagamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Desativado = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CodigoResetarSenha = table.Column<string>(type: "CHAR(64)", nullable: true),
+                    CodigoResetarSenhaExpiraEm = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CriadoPor = table.Column<int>(type: "int", nullable: true),
                     CriadoPorAdmin = table.Column<bool>(type: "bit", nullable: false),
@@ -72,6 +68,8 @@ namespace MarcketPlace.Infra.Migrations
                     Telefone = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
                     Senha = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Desativado = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CodigoResetarSenha = table.Column<string>(type: "CHAR(64)", nullable: true),
+                    CodigoResetarSenhaExpiraEm = table.Column<DateTime>(type: "DATETIME", nullable: true),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CriadoPor = table.Column<int>(type: "int", nullable: true),
                     CriadoPorAdmin = table.Column<bool>(type: "bit", nullable: false),

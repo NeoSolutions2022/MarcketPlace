@@ -2,10 +2,13 @@
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Fornecedor;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
+using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace MarcketPlace.Application.Services;
 
@@ -13,11 +16,15 @@ public class FornecedorService : BaseService, IFornecedorService
 {
     private readonly IFornecedorRepository _fornecedorRepository;
     private readonly IPasswordHasher<Fornecedor> _passwordHasher;
+    private readonly IEmailService _emailService;
+    private readonly AppSettings _appSettings;
 
-    public FornecedorService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository, IPasswordHasher<Fornecedor> passwordHasher) : base(mapper, notificator)
+    public FornecedorService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository, IPasswordHasher<Fornecedor> passwordHasher, IOptions<AppSettings> appSettings, IEmailService emailService) : base(mapper, notificator)
     {
         _fornecedorRepository = fornecedorRepository;
         _passwordHasher = passwordHasher;
+        _emailService = emailService;
+        _appSettings = appSettings.Value;
     }
 
 
@@ -114,6 +121,36 @@ public class FornecedorService : BaseService, IFornecedorService
         return null;
     }
 
+    public async Task ResetarSenha(int id)
+    {
+        var fornecedor = await _fornecedorRepository.FistOrDefault(f => f.Id == id);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        fornecedor.CodigoResetarSenha = Guid.NewGuid();
+        fornecedor.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _fornecedorRepository.Alterar(fornecedor);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                fornecedor.Email,
+                "Seu link para resetar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    Nome = fornecedor.NomeSocial ?? fornecedor.Nome,
+                    fornecedor.Email,
+                    Codigo = fornecedor.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
+    }
+
     public async Task Desativar(int id)
     {
         var fornecedor = await _fornecedorRepository.ObterPorId(id);
@@ -160,7 +197,7 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         var fornecedorExistente = await _fornecedorRepository.FistOrDefault(c =>
-            c.Email == fornecedor.Email || c.Cnpj == fornecedor.Cnpj && c.Id != fornecedor.Id);
+            (c.Email == fornecedor.Email || c.Cnpj == fornecedor.Cnpj) && c.Id != fornecedor.Id);
 
         if (fornecedorExistente != null)
         {
