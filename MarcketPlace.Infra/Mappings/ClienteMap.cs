@@ -46,5 +46,15 @@ public class ClienteMap : IEntityTypeConfiguration<Cliente>
         builder
             .Property(c => c.DataPagamento)
             .IsRequired();
+
+        builder
+            .Property(c => c.CodigoResetarSenha)
+            .HasColumnType("CHAR(64)")
+            .IsRequired(false);
+        
+        builder
+            .Property(c => c.CodigoResetarSenhaExpiraEm)
+            .HasColumnType("DATETIME")
+            .IsRequired(false);
     }
 }

@@ -15,6 +15,8 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
     public string Senha { get; set; } = null!;
     public bool Desativado { get; set; }
     public List<ProdutoServico> ProdutoServicos { get; set; } = new();
+    public Guid? CodigoResetarSenha { get; set; }
+    public DateTime? CodigoResetarSenhaExpiraEm { get; set; }
 
     public override bool Validar(out ValidationResult validationResult)
     {

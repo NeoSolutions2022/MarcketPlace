@@ -48,5 +48,15 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .WithOne(c => c.Fornecedor)
             .HasForeignKey(c => c.FornecedorId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .Property(c => c.CodigoResetarSenha)
+            .HasColumnType("CHAR(64)")
+            .IsRequired(false);
+        
+        builder
+            .Property(c => c.CodigoResetarSenhaExpiraEm)
+            .HasColumnType("DATETIME")
+            .IsRequired(false);
     }
 }

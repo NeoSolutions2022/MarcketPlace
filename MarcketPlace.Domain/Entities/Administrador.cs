@@ -4,7 +4,7 @@ using MarcketPlace.Domain.Validation;
 
 namespace MarcketPlace.Domain.Entities;
 
-public class Administrador : Entity, IAggregateRoot, ISoftDelete
+public class Administrador : EntityNotTracked, IAggregateRoot, ISoftDelete
 {
     public string Nome { get; set; } = null!;
     public string Email { get; set; } = null!;

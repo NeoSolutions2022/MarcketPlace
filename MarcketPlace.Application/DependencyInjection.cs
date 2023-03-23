@@ -1,18 +1,16 @@
-﻿using System.Net;
-using System.Reflection;
+﻿using System.Reflection;
+using MarcketPlace.Application.BackgroundJob;
+using MarcketPlace.Application.Configuration.DependencyInjection;
 using MarcketPlace.Application.Contracts;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
 using MarcketPlace.Application.Services;
-using MarcketPlace.Core.Enums;
-using MarcketPlace.Core.Extensions;
 using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Entities;
 using MarcketPlace.Infra;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using ScottBrady91.AspNetCore.Identity;
 
 namespace MarcketPlace.Application;
@@ -29,6 +27,10 @@ public static class DependencyInjection
         services.ConfigureRepositories();
 
         services
+            .AddEmailFactory(configuration);
+        services
+            .AddHangfireConfig(configuration);
+        services
             .AddAutoMapper(Assembly.GetExecutingAssembly());
     }
     
@@ -37,6 +39,8 @@ public static class DependencyInjection
         services
             .AddScoped<IClienteService, ClienteService>()
             .AddScoped<IFornecedorService, FornecedorService>()
+            .AddScoped<IBackgroundClient, BackgroundClient>()
+            .AddScoped<IEmailService, EmailService>()
             .AddScoped<IAdministradorService, AdministradorService>();
 
         services

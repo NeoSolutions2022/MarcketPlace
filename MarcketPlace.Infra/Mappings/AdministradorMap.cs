@@ -22,5 +22,9 @@ public class AdministradorMap : IEntityTypeConfiguration<Administrador>
             .Property(a => a.Email)
             .IsRequired()
             .HasMaxLength(80);
+
+        builder
+            .Property(a => a.Desativado)
+            .HasDefaultValue(false);
     }
 }

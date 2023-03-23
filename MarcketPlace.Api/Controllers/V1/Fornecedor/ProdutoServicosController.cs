@@ -5,9 +5,9 @@ using MarcketPlace.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace MarcketPlace.Api.Controllers.V1.Fornecedores;
+namespace MarcketPlace.Api.Controllers.V1.Fornecedor;
 
-[Route("v{version:apiVersion}/Fornecedores/[controller]")]
+[Route("v{version:apiVersion}/Fornecedor/[controller]")]
 public class ProdutosServicoController : BaseController
 {
     private readonly IProdutoServicoService _produtoServicoService;
