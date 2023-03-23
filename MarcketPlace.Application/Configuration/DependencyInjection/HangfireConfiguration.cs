@@ -11,15 +11,15 @@ public static class HangfireConfiguration
     {
         var connectionString = configuration.GetConnectionString("HangfireConnection");
 
-        var mySqlStorage = new SqlServerStorage(connectionString, new SqlServerStorageOptions()
+        var sqlStorage = new SqlServerStorage(connectionString, new SqlServerStorageOptions()
         {
             CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
             SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
             QueuePollInterval = TimeSpan.Zero,
             UseRecommendedIsolationLevel = true,
-            DisableGlobalLocks = true // Migration to Schema 7 is required
+            DisableGlobalLocks = true
         });
-
+        
         services.AddHangfire(config =>
         {
             config
@@ -27,9 +27,10 @@ public static class HangfireConfiguration
                 .UseRecommendedSerializerSettings();
 
             config
-                .UseStorage(mySqlStorage);
+                .UseStorage(sqlStorage);
         });
 
-        JobStorage.Current = mySqlStorage;
+        JobStorage.Current = sqlStorage;
+        services.AddHangfireServer();
     }
 }

@@ -24,11 +24,10 @@ public class EmailService : IEmailService
         await EnviarEmail(destinatario, assunto, MountPath(template), model);
     }
     
-    public async void Enviar(string destinatario, string assunto, string template, object model, TimeSpan? delay = null)
+    public void Enviar(string destinatario, string assunto, string template, object model, TimeSpan? delay = null)
     {
         var templatePath = MountPath(template);
         
-        await EnviarEmail(destinatario, assunto, templatePath, model);
         _backgroundClient
             .Schedule(() => EnviarEmail(destinatario, assunto, templatePath, model), delay ?? TimeSpan.Zero);
     }

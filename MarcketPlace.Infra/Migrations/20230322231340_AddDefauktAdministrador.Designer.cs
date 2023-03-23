@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcketPlace.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230322220142_Initial")]
-    partial class Initial
+    [Migration("20230322231340_AddDefauktAdministrador")]
+    partial class AddDefauktAdministrador
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,24 +31,6 @@ namespace MarcketPlace.Infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("AtualizadoEm")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("AtualizadoPor")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("AtualizadoPorAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CriadoEm")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("CriadoPor")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CriadoPorAdmin")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()
