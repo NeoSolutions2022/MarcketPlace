@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace MarcketPlace.Api.Controllers.V1.Fornecedor;
 
 [Route("v{version:apiVersion}/Fornecedor/[controller]")]
-public class ProdutosServicoController : BaseController
+public class ProdutosServicoController : MainController
 {
     private readonly IProdutoServicoService _produtoServicoService;
     public ProdutosServicoController(INotificator notificator, IProdutoServicoService produtoServicoService) : base(notificator)
