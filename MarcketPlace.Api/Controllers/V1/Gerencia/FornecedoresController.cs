@@ -1,4 +1,5 @@
 ﻿using MarcketPlace.Application.Contracts;
+using MarcketPlace.Application.Dtos.V1.Fornecedor;
 using MarcketPlace.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -13,6 +14,18 @@ public class FornecedoresController : MainController
     public FornecedoresController(INotificator notificator, IFornecedorService fornecedorService) : base(notificator)
     {
         _fornecedorService = fornecedorService;
+    }
+    
+    [HttpGet("cnpj/{cpf}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por cpf.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterPorCpf(string cpf)
+    {
+        var fornecedor = await _fornecedorService.ObterPorCnpj(cpf);
+        return OkResponse(fornecedor);
     }
     
     [HttpPatch("ativar/{id}")]

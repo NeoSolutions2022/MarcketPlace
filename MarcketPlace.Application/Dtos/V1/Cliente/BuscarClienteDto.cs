@@ -10,6 +10,9 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
     public bool? Inadiplente { get; set; }
     public DateTime? DataPagamento { get; set; }
     public bool? Desativado { get; set; }
+    public string? Cep { get; set; }
+    public string? Cidade { get; set; }
+    public string? Uf { get; set; }
 
     public override void AplicarFiltro(ref IQueryable<Domain.Entities.Cliente> query)
     {
@@ -23,6 +26,21 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
         if (!string.IsNullOrWhiteSpace(NomeSocial))
         {
             query = query.Where(c => c.NomeSocial!.Contains(NomeSocial));
+        }
+        
+        if (!string.IsNullOrWhiteSpace(Cep))
+        {
+            query = query.Where(c => c.Cep.Contains(Cep));
+        }
+        
+        if (!string.IsNullOrWhiteSpace(Uf))
+        {
+            query = query.Where(c => c.Uf.Contains(Uf));
+        }
+        
+        if (!string.IsNullOrWhiteSpace(Cidade))
+        {
+            query = query.Where(c => c.Cidade.Contains(Cidade));
         }
         
         if (Inadiplente.HasValue)
@@ -53,6 +71,9 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
                 "nomesocial" => query.OrderBy(c => c.NomeSocial),
                 "inadiplente" => query.OrderBy(c => c.Inadiplente),
                 "datapagamento" => query.OrderBy(c => c.DataPagamento),
+                "cep" => query.OrderBy(c => c.Cep),
+                "cidade" => query.OrderBy(c => c.Cidade),
+                "uf" => query.OrderBy(c => c.Uf),
                 "desativado" => query.OrderBy(c => c.Desativado),
                 "id" or _ => query.OrderBy(c => c.Id)
             };
@@ -64,6 +85,9 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
             "nome" => query.OrderByDescending(c => c.Nome),
             "nomesocial" => query.OrderByDescending(c => c.NomeSocial),
             "inadiplente" => query.OrderByDescending(c => c.Inadiplente),
+            "cep" => query.OrderByDescending(c => c.Cep),
+            "cidade" => query.OrderByDescending(c => c.Cidade),
+            "uf" => query.OrderByDescending(c => c.Uf),
             "datapagamento" => query.OrderByDescending(c => c.DataPagamento),
             "desativado" => query.OrderByDescending(c => c.Desativado),
             "id" or _ => query.OrderByDescending(c => c.Id)

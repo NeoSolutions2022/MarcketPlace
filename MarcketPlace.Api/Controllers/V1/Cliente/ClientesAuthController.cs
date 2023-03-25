@@ -19,7 +19,7 @@ public class ClientesAuthController : BaseController
     }
     
     [HttpPost("Login-Cliente")]
-    [SwaggerOperation(Summary = "Login - Cliente.", Tags = new [] { "Gerencia - Cliente Autenticação" })]
+    [SwaggerOperation(Summary = "Login - Cliente.", Tags = new [] { "Usuario - Cliente - Autenticação" })]
     [ProducesResponseType(typeof(UsuarioAutenticadoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LoginCliente([FromBody] LoginDto loginCliente)

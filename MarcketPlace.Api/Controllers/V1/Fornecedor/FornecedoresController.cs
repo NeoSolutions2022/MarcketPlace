@@ -18,7 +18,7 @@ public class FornecedoresController : MainController
     }
     
     [HttpGet]
-    [SwaggerOperation(Summary = "Listagem de Fornecedor", Tags = new[] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Listagem de Fornecedor", Tags = new[] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(PagedDto<FornecedorDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -30,7 +30,7 @@ public class FornecedoresController : MainController
     }
     
     [HttpGet("{id}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -42,7 +42,7 @@ public class FornecedoresController : MainController
     }
     
     [HttpGet("email/{email}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por Email.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Email.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -54,7 +54,7 @@ public class FornecedoresController : MainController
     }
     
     [HttpGet("cnpj/{cnpj}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por Cnpj.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Cnpj.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -64,9 +64,9 @@ public class FornecedoresController : MainController
         var fornecedor = await _fornecedorService.ObterPorCnpj(cnpj);
         return OkResponse(fornecedor);
     }
-    
+
     [HttpPut("{id}")]
-    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -77,7 +77,7 @@ public class FornecedoresController : MainController
     }
     
     [HttpPost("{id}/resetar-senha")]
-    [SwaggerOperation(Summary = "Resetar a senha do Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Resetar a senha do Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

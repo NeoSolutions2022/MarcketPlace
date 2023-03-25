@@ -17,6 +17,12 @@ public class Cliente : Entity, ISoftDelete, IAggregateRoot
     public bool Desativado { get; set; }
     public Guid? CodigoResetarSenha { get; set; }
     public DateTime? CodigoResetarSenhaExpiraEm { get; set; }
+    public string Cep { get; set; } = null!;
+    public string Cidade { get; set; } = null!;
+    public string Uf { get; set; } = null!;
+    public string Endereco { get; set; } = null!;
+    public int Numero { get; set; }
+    public string? Complemento { get; set; }
 
     public override bool Validar(out ValidationResult validationResult)
     {

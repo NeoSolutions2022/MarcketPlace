@@ -19,7 +19,7 @@ public class ClientesCadastroController : BaseController
     
     [HttpPost]
     [AllowAnonymous]
-    [SwaggerOperation(Summary = "Cadastro de um Cliente.", Tags = new [] { "Gerencia - Cliente" })]
+    [SwaggerOperation(Summary = "Cadastro de um Cliente.", Tags = new [] { "Usuario - Cliente" })]
     [ProducesResponseType(typeof(ClienteDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

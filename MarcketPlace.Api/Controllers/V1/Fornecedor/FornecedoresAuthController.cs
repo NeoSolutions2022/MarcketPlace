@@ -18,7 +18,7 @@ public class FornecedorAuthController : BaseController
         _usuarioAuthService = usuarioAuthService;
     }
     [HttpPost("Login-Fornecedor")]
-    [SwaggerOperation(Summary = "Login - Fornecedor.", Tags = new [] { "Gerencia - Fornecedor Autenticação" })]
+    [SwaggerOperation(Summary = "Login - Fornecedor.", Tags = new [] { "Usuario - Fornecedor - Autenticação" })]
     [ProducesResponseType(typeof(UsuarioAutenticadoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LoginFornecedor([FromBody] LoginDto loginFornecedor)

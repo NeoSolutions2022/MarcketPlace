@@ -36,13 +36,20 @@ public class FornecedorService : BaseService, IFornecedorService
 
     public async Task<FornecedorDto?> Cadastrar(CadastrarFornecedorDto dto)
     {
+        if (dto.Senha != dto.ConfirmacaoSenha)
+        {
+            Notificator.Handle("As senhas não conferem!");
+            return null;
+        }
+        
         var fornecedor = Mapper.Map<Fornecedor>(dto);
         if (!await Validar(fornecedor))
         {
             return null;
         }
-        
+
         fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
+        fornecedor.Uf = fornecedor.Uf.ToLower();
         _fornecedorRepository.Adicionar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
         {
@@ -75,6 +82,7 @@ public class FornecedorService : BaseService, IFornecedorService
         }
         
         fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
+        fornecedor.Uf = fornecedor.Uf.ToLower();
         _fornecedorRepository.Alterar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
         {
@@ -111,7 +119,19 @@ public class FornecedorService : BaseService, IFornecedorService
 
     public async Task<FornecedorDto?> ObterPorCnpj(string cnpj)
     {
-        var fornecedor = await _fornecedorRepository.ObterPorCpf(cnpj);
+        var fornecedor = await _fornecedorRepository.ObterPorCnpj(cnpj);
+        if (fornecedor != null)
+        {
+            return Mapper.Map<FornecedorDto>(fornecedor);
+        }
+        
+        Notificator.HandleNotFoundResource();
+        return null;
+    }
+    
+    public async Task<FornecedorDto?> ObterPorCpf(string cpf)
+    {
+        var fornecedor = await _fornecedorRepository.ObterPorCpf(cpf);
         if (fornecedor != null)
         {
             return Mapper.Map<FornecedorDto>(fornecedor);
@@ -142,7 +162,7 @@ public class FornecedorService : BaseService, IFornecedorService
                 "Usuario/CodigoResetarSenha",
                 new
                 {
-                    Nome = fornecedor.NomeSocial ?? fornecedor.Nome,
+                    Nome = fornecedor.Nome ?? fornecedor.Nome,
                     fornecedor.Email,
                     Codigo = fornecedor.CodigoResetarSenha,
                     Url = _appSettings.UrlComum,

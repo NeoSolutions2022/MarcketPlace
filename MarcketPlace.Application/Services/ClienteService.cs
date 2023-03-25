@@ -28,6 +28,12 @@ public class ClienteService : BaseService, IClienteService
 
     public async Task<ClienteDto?> Cadastrar(CadastrarClienteDto dto)
     {
+        if (dto.Senha != dto.ConfirmacaoSenha)
+        {
+            Notificator.Handle("As senhas não conferem!");
+            return null;
+        }
+        
         var cliente = Mapper.Map<Cliente>(dto);
         if (!await Validar(cliente))
         {
@@ -35,6 +41,7 @@ public class ClienteService : BaseService, IClienteService
         }
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
+        cliente.Uf = cliente.Uf.ToLower();
         _clienteRepository.Adicionar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {
@@ -67,6 +74,7 @@ public class ClienteService : BaseService, IClienteService
         }
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
+        cliente.Uf = cliente.Uf.ToLower();
         _clienteRepository.Alterar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {

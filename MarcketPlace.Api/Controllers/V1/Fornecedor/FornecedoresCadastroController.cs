@@ -18,7 +18,7 @@ public class FornecedoresCadastroController : BaseController
     
     [AllowAnonymous]
     [HttpPost]
-    [SwaggerOperation(Summary = "Cadastro de um Fornecedor.", Tags = new [] { "Fornecedor - Cadastro" })]
+    [SwaggerOperation(Summary = "Cadastro de um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

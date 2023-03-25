@@ -11,6 +11,7 @@ public interface IFornecedorService
     Task<FornecedorDto?> ObterPorId(int id);
     Task<FornecedorDto?> ObterPorEmail(string email);
     Task<FornecedorDto?> ObterPorCnpj(string cnpj);
+    Task<FornecedorDto?> ObterPorCpf(string cpf);
     Task ResetarSenha(int id);
     Task Desativar(int id);
     Task Reativar(int id);
