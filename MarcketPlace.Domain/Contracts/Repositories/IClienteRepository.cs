@@ -11,4 +11,5 @@ public interface IClienteRepository : IRepository<Cliente>
     Task<Cliente?> ObterPorEmail(string email);
     Task<Cliente?> ObterPorCpf(string cpf);
     Task<IResultadoPaginado<Cliente>> Buscar(IBuscaPaginada<Cliente> filtro);
+    void Remover(Cliente cliente);
 }

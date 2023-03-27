@@ -49,4 +49,15 @@ public class FornecedoresController : MainController
         await _fornecedorService.Reativar(id);
         return NoContentResponse();
     }
+    
+    [HttpDelete("{id}")]
+    [SwaggerOperation(Summary = "Remover um Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Remover(int id)
+    {
+        await _fornecedorService.Remover(id);
+        return NoContentResponse();
+    }
 }

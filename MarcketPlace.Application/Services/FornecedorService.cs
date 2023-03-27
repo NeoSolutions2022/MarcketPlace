@@ -4,9 +4,11 @@ using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Fornecedor;
 using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
+using MarcketPlace.Core.Enums;
 using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
@@ -18,12 +20,14 @@ public class FornecedorService : BaseService, IFornecedorService
     private readonly IPasswordHasher<Fornecedor> _passwordHasher;
     private readonly IEmailService _emailService;
     private readonly AppSettings _appSettings;
+    private readonly IFileService _fileService;
 
-    public FornecedorService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository, IPasswordHasher<Fornecedor> passwordHasher, IOptions<AppSettings> appSettings, IEmailService emailService) : base(mapper, notificator)
+    public FornecedorService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository, IPasswordHasher<Fornecedor> passwordHasher, IOptions<AppSettings> appSettings, IEmailService emailService, IFileService fileService) : base(mapper, notificator)
     {
         _fornecedorRepository = fornecedorRepository;
         _passwordHasher = passwordHasher;
         _emailService = emailService;
+        _fileService = fileService;
         _appSettings = appSettings.Value;
     }
 
@@ -36,6 +40,11 @@ public class FornecedorService : BaseService, IFornecedorService
 
     public async Task<FornecedorDto?> Cadastrar(CadastrarFornecedorDto dto)
     {
+        if (!ValidarAnexos(dto))
+        {
+            return null;
+        }
+        
         if (dto.Senha != dto.ConfirmacaoSenha)
         {
             Notificator.Handle("As senhas não conferem!");
@@ -48,6 +57,11 @@ public class FornecedorService : BaseService, IFornecedorService
             return null;
         }
 
+        if (dto.Foto is { Length: > 0 })
+        {
+            fornecedor.Foto = await _fileService.Upload(dto.Foto, EUploadPath.FotoFornecedor);
+        }
+        
         fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
         fornecedor.Uf = fornecedor.Uf.ToLower();
         _fornecedorRepository.Adicionar(fornecedor);
@@ -79,6 +93,11 @@ public class FornecedorService : BaseService, IFornecedorService
         if (!await Validar(fornecedor))
         {
             return null;
+        }
+        
+        if (dto.Foto is { Length: > 0 })
+        {
+            fornecedor.Foto = await _fileService.Upload(dto.Foto, EUploadPath.FotoFornecedor);
         }
         
         fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
@@ -139,6 +158,36 @@ public class FornecedorService : BaseService, IFornecedorService
         
         Notificator.HandleNotFoundResource();
         return null;
+    }
+
+    public async Task AlterarSenha(string email)
+    {
+        var fornecedor = await _fornecedorRepository.FistOrDefault(f => f.Email == email);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        fornecedor.CodigoResetarSenha = Guid.NewGuid();
+        fornecedor.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _fornecedorRepository.Alterar(fornecedor);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                fornecedor.Email,
+                "Seu link para alterar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    Nome = fornecedor.Nome ?? fornecedor.Nome,
+                    fornecedor.Email,
+                    Codigo = fornecedor.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
     }
 
     public async Task ResetarSenha(int id)
@@ -209,6 +258,24 @@ public class FornecedorService : BaseService, IFornecedorService
         Notificator.Handle("Não foi possível reativar o fornecedor");
     }
 
+    public async Task Remover(int id)
+    {
+        var cliente = await _fornecedorRepository.ObterPorId(id);
+        if (cliente == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+        
+        _fornecedorRepository.Remover(cliente);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível remover o cliente");
+    }
+
     private async Task<bool> Validar(Fornecedor fornecedor)
     {
         if (!fornecedor.Validar(out var validationResult))
@@ -222,6 +289,29 @@ public class FornecedorService : BaseService, IFornecedorService
         if (fornecedorExistente != null)
         {
             Notificator.Handle("Já existe um fornecedor cadastrado com essas identificações");
+        }
+
+        return !Notificator.HasNotification;
+    }
+    
+    private async Task<bool> ManterFoto(IFormFile foto, Fornecedor fornecedor)
+    {
+        fornecedor.Foto = await _fileService.Upload(foto, EUploadPath.FotoFornecedor);
+        return true;
+    }
+    
+    private bool ValidarAnexos(CadastrarFornecedorDto dto)
+    {
+        if (dto.Foto?.Length > 10000000)
+        {
+            Notificator.Handle("Foto deve ter no máximo 10Mb");
+        }
+
+        if (dto.Foto != null && dto.Foto.FileName.Split(".").Last() != "jfif" &&
+            dto.Foto.FileName.Split(".").Last() != "png" && dto.Foto.FileName.Split(".").Last() != "jpg" 
+            && dto.Foto.FileName.Split(".").Last() != "jpeg")
+        {
+            Notificator.Handle("Foto deve do tipo png, jfif ou jpg");
         }
 
         return !Notificator.HasNotification;

@@ -43,4 +43,9 @@ public class ClienteRepository : Repository<Cliente>, IClienteRepository
         var query = Context.Clientes.AsQueryable();
         return await base.Buscar(query, filtro);
     }
+
+    public void Remover(Cliente cliente)
+    {
+        Context.Clientes.Remove(cliente);
+    }
 }

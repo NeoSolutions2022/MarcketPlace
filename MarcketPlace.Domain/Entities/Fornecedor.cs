@@ -22,6 +22,7 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
     public string Senha { get; set; } = null!;
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
+    public string? Foto { get; set; }
     
     public List<ProdutoServico> ProdutoServicos { get; set; } = new();
 

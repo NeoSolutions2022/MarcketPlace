@@ -12,4 +12,5 @@ public interface IFornecedorRepository : IRepository<Fornecedor>
     Task<Fornecedor?> ObterPorCpf(string cpf);
     Task<Fornecedor?> ObterPorCnpj(string cnpj);
     Task<IResultadoPaginado<Fornecedor>> Buscar(IBuscaPaginada<Fornecedor> filtro);
+    void Remover(Fornecedor fornecedor);
 }

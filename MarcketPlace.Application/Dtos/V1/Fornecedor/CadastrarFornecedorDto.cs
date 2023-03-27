@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
 
@@ -20,4 +21,6 @@ public class CadastrarFornecedorDto
     public string Uf { get; set; } = null!;
     [Required(ErrorMessage = "A confirmação da senha é necessária")]
     public string ConfirmacaoSenha { get; set; } = null!;
+
+    public IFormFile? Foto { get; set; }
 }

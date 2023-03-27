@@ -1,4 +1,6 @@
-﻿namespace MarcketPlace.Application.Dtos.V1.Cliente;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace MarcketPlace.Application.Dtos.V1.Cliente;
 
 public class AlterarClienteDto
 {
@@ -17,4 +19,5 @@ public class AlterarClienteDto
     public string Endereco { get; set; } = null!;
     public int Numero { get; set; }
     public string? Complemento { get; set; }
+    public IFormFile? Foto { get; set; }
 }

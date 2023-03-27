@@ -48,4 +48,9 @@ public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepositor
         var query = Context.Fornecedores.AsQueryable();
         return await base.Buscar(query, filtro);
     }
+
+    public void Remover(Fornecedor fornecedor)
+    {
+        Context.Fornecedores.Remove(fornecedor);
+    }
 }

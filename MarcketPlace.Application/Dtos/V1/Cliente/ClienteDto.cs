@@ -18,4 +18,5 @@ public class ClienteDto
     public string Endereco { get; set; } = null!;
     public int Numero { get; set; }
     public string? Complemento { get; set; }
+    public string? Foto { get; set; }
 }

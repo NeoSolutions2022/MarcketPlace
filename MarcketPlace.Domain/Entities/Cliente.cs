@@ -23,6 +23,7 @@ public class Cliente : Entity, ISoftDelete, IAggregateRoot
     public string Endereco { get; set; } = null!;
     public int Numero { get; set; }
     public string? Complemento { get; set; }
+    public string? Foto { get; set; }
 
     public override bool Validar(out ValidationResult validationResult)
     {

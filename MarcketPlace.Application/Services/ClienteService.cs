@@ -2,10 +2,15 @@
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Cliente;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
+using MarcketPlace.Core.Enums;
+using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace MarcketPlace.Application.Services;
 
@@ -13,11 +18,17 @@ public class ClienteService : BaseService, IClienteService
 {
     private readonly IClienteRepository _clienteRepository;
     private readonly IPasswordHasher<Cliente> _passwordHasher;
+    private readonly IEmailService _emailService;
+    private readonly AppSettings _appSettings;
+    private readonly IFileService _fileService;
 
-    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher) : base(mapper, notificator)
+    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher, IEmailService emailService, IOptions<AppSettings> appSettings, IFileService fileService) : base(mapper, notificator)
     {
         _clienteRepository = clienteRepository;
         _passwordHasher = passwordHasher;
+        _emailService = emailService;
+        _fileService = fileService;
+        _appSettings = appSettings.Value;
     }
 
     public async Task<PagedDto<ClienteDto>> Buscar(BuscarClienteDto dto)
@@ -28,6 +39,11 @@ public class ClienteService : BaseService, IClienteService
 
     public async Task<ClienteDto?> Cadastrar(CadastrarClienteDto dto)
     {
+        if (!ValidarAnexos(dto))
+        {
+            return null;
+        }
+        
         if (dto.Senha != dto.ConfirmacaoSenha)
         {
             Notificator.Handle("As senhas não conferem!");
@@ -38,6 +54,11 @@ public class ClienteService : BaseService, IClienteService
         if (!await Validar(cliente))
         {
             return null;
+        }
+        
+        if (dto.Foto is { Length: > 0 })
+        {
+            cliente.Foto = await _fileService.Upload(dto.Foto, EUploadPath.FotoCliente);
         }
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
@@ -69,6 +90,11 @@ public class ClienteService : BaseService, IClienteService
 
         Mapper.Map(cliente, dto);
         if (!await Validar(cliente))
+        {
+            return null;
+        }
+        
+        if (dto.Foto is { Length: > 0 } && !await ManterFoto(dto.Foto, cliente))
         {
             return null;
         }
@@ -121,6 +147,66 @@ public class ClienteService : BaseService, IClienteService
         return null;
     }
 
+    public async Task AlterarSenha(string email)
+    {
+        var fornecedor = await _clienteRepository.FistOrDefault(f => f.Email == email);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        fornecedor.CodigoResetarSenha = Guid.NewGuid();
+        fornecedor.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _clienteRepository.Alterar(fornecedor);
+        if (await _clienteRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                fornecedor.Email,
+                "Seu link para alterar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    Nome = fornecedor.Nome ?? fornecedor.Nome,
+                    fornecedor.Email,
+                    Codigo = fornecedor.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
+    }
+
+    public async Task ResetarSenha(int id)
+    {
+        var fornecedor = await _clienteRepository.FistOrDefault(f => f.Id == id);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        fornecedor.CodigoResetarSenha = Guid.NewGuid();
+        fornecedor.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _clienteRepository.Alterar(fornecedor);
+        if (await _clienteRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                fornecedor.Email,
+                "Seu link para resetar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    Nome = fornecedor.Nome ?? fornecedor.Nome,
+                    fornecedor.Email,
+                    Codigo = fornecedor.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
+    }
+
     public async Task Desativar(int id)
     {
         var cliente = await _clienteRepository.ObterPorId(id);
@@ -159,6 +245,24 @@ public class ClienteService : BaseService, IClienteService
         Notificator.Handle("Não foi possível reativar o cliente");
     }
 
+    public async Task Remover(int id)
+    {
+        var cliente = await _clienteRepository.ObterPorId(id);
+        if (cliente == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+        
+        _clienteRepository.Remover(cliente);
+        if (await _clienteRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível remover o cliente");
+    }
+
     private async Task<bool> Validar(Cliente cliente)
     {
         if (!cliente.Validar(out var validationResult))
@@ -173,6 +277,29 @@ public class ClienteService : BaseService, IClienteService
             Notificator.Handle("Já existe um usuário cadastrador com uma ou mais identificações");
         }
         
+        return !Notificator.HasNotification;
+    }
+    
+    private async Task<bool> ManterFoto(IFormFile foto, Cliente cliente)
+    {
+        cliente.Foto = await _fileService.Upload(foto, EUploadPath.FotoCliente);
+        return true;
+    }
+    
+    private bool ValidarAnexos(CadastrarClienteDto dto)
+    {
+        if (dto.Foto?.Length > 10000000)
+        {
+            Notificator.Handle("Foto deve ter no máximo 10Mb");
+        }
+
+        if (dto.Foto != null && dto.Foto.FileName.Split(".").Last() != "jfif" &&
+            dto.Foto.FileName.Split(".").Last() != "png" && dto.Foto.FileName.Split(".").Last() != "jpg" 
+            && dto.Foto.FileName.Split(".").Last() != "jpeg")
+        {
+            Notificator.Handle("Foto deve do tipo png, jfif ou jpg");
+        }
+
         return !Notificator.HasNotification;
     }
 }
