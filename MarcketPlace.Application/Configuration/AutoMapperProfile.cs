@@ -15,7 +15,7 @@ public class AutoMapperProfile : Profile
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AdministradorDto, Administrador>().ReverseMap();
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AdicionarAdministradorDto, Administrador>().ReverseMap();
         CreateMap<MarcketPlace.Application.Dtos.V1.Administrador.AlterarAdministradorDto, Administrador>().ReverseMap();
-        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Administrador.BuscarAdministradorDto>, ResultadoPaginado<Administrador>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Administrador.AdministradorDto>, ResultadoPaginado<Administrador>>().ReverseMap();
 
         #endregion
 
@@ -23,20 +23,23 @@ public class AutoMapperProfile : Profile
 
         CreateMap<MarcketPlace.Application.Dtos.V1.Cliente.ClienteDto, Cliente>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
         CreateMap<MarcketPlace.Application.Dtos.V1.Cliente.AlterarClienteDto, Cliente>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
         CreateMap<MarcketPlace.Application.Dtos.V1.Cliente.CadastrarClienteDto, Cliente>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
-        CreateMap<MarcketPlace.Application.Dtos.V1.Cliente.BuscarClienteDto, ResultadoPaginado<Cliente>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Cliente.ClienteDto>, ResultadoPaginado<Cliente>>().ReverseMap();
 
         #endregion
         
@@ -45,22 +48,25 @@ public class AutoMapperProfile : Profile
         CreateMap<MarcketPlace.Application.Dtos.V1.Fornecedor.FornecedorDto, Fornecedor>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
             .AfterMap((_, dest) => dest.Cnpj = dest.Cnpj.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
         CreateMap<MarcketPlace.Application.Dtos.V1.Fornecedor.AlterarFornecedorDto, Fornecedor>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
             .AfterMap((_, dest) => dest.Cnpj = dest.Cnpj.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
         CreateMap<MarcketPlace.Application.Dtos.V1.Fornecedor.CadastrarFornecedorDto, Fornecedor>()
             .AfterMap((_, dest) => dest.Cpf = dest.Cpf.SomenteNumeros())
             .AfterMap((_, dest) => dest.Cnpj = dest.Cnpj.SomenteNumeros())
+            .AfterMap((_, dest) => dest.Cep = dest.Cep.SomenteNumeros())
             .AfterMap((_, dest) => dest.Telefone = dest.Telefone.SomenteNumeros())
             .ReverseMap();
         
-        CreateMap<MarcketPlace.Application.Dtos.V1.Fornecedor.BuscarFornecedorDto, ResultadoPaginado<Fornecedor>>().ReverseMap();
+        CreateMap<PagedDto<MarcketPlace.Application.Dtos.V1.Fornecedor.FornecedorDto>, ResultadoPaginado<Fornecedor>>().ReverseMap();
 
         #endregion
     }

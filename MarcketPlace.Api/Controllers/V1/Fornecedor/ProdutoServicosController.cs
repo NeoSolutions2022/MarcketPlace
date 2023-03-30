@@ -5,10 +5,10 @@ using MarcketPlace.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace MarcketPlace.Api.Controllers.V1.Fornecedores;
+namespace MarcketPlace.Api.Controllers.V1.Fornecedor;
 
-[Route("v{version:apiVersion}/Fornecedores/[controller]")]
-public class ProdutosServicoController : BaseController
+[Route("v{version:apiVersion}/Fornecedor/[controller]")]
+public class ProdutosServicoController : MainController
 {
     private readonly IProdutoServicoService _produtoServicoService;
     public ProdutosServicoController(INotificator notificator, IProdutoServicoService produtoServicoService) : base(notificator)
@@ -17,7 +17,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpGet("{id}")]
-    [SwaggerOperation(Summary = "Obter Produto/Serviço - Fornecedor.", Tags = new [] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Obter Produto/Serviço - Fornecedor.", Tags = new [] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(typeof(ProdutoServicoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -29,7 +29,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpGet]
-    [SwaggerOperation(Summary = "Buscar Produto/Serviço - Fornecedor.", Tags = new [] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Buscar Produto/Serviço - Fornecedor.", Tags = new [] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(typeof(PagedDto<ProdutoServicoDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -40,7 +40,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpPost]
-    [SwaggerOperation(Summary = "Cadastrar Produto/Serviço - Fornecedor.", Tags = new [] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Cadastrar Produto/Serviço - Fornecedor.", Tags = new [] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(typeof(ProdutoServicoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Cadastrar([FromBody] CadastrarProdutoServicoDto dto)
@@ -50,7 +50,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpPut("{id}")]
-    [SwaggerOperation(Summary = "Alterar Produto/Serviço - Fornecedor.", Tags = new [] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Alterar Produto/Serviço - Fornecedor.", Tags = new [] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(typeof(ProdutoServicoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Alterar(int id, [FromBody] AlterarProdutoServicoDto dto)
@@ -60,7 +60,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpDelete("{id}")]
-    [SwaggerOperation(Summary = "Deletar Produto/Serviço - Fornecedor.", Tags = new[] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Deletar Produto/Serviço - Fornecedor.", Tags = new[] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -71,7 +71,7 @@ public class ProdutosServicoController : BaseController
     }
     
     [HttpPatch("{id}")]
-    [SwaggerOperation(Summary = "Reativar Produto/Serviço - Fornecedor.", Tags = new[] { "Produtos/Serviços - Fornecedores" })]
+    [SwaggerOperation(Summary = "Reativar Produto/Serviço - Fornecedor.", Tags = new[] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

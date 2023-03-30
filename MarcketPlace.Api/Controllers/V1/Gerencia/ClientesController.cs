@@ -16,7 +16,7 @@ public class ClientesController : MainController
     {
         _clienteService = clienteService;
     }
-
+    
     [HttpGet]
     [SwaggerOperation(Summary = "Listagem de Clientes", Tags = new[] { "Gerencia - Cliente" })]
     [ProducesResponseType(typeof(PagedDto<ClienteDto>), StatusCodes.Status200OK)]
@@ -64,29 +64,7 @@ public class ClientesController : MainController
         var usuario = await _clienteService.ObterPorCpf(cpf);
         return OkResponse(usuario);
     }
-    
-    [HttpPut("{id}")]
-    [SwaggerOperation(Summary = "Atualizar um Cliente.", Tags = new [] { "Gerencia - Cliente" })]
-    [ProducesResponseType(typeof(ClienteDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> Alterar(int id, [FromForm] AlterarClienteDto dto)
-    {
-        var usuario = await _clienteService.Alterar(id, dto);
-        return OkResponse(usuario);
-    }
-    
-    [HttpPost]
-    [SwaggerOperation(Summary = "Cadastro de um Cliente.", Tags = new [] { "Gerencia - Cliente" })]
-    [ProducesResponseType(typeof(ClienteDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> Cadastrar([FromForm] CadastrarClienteDto dto)
-    {
-        var usuario = await _clienteService.Cadastrar(dto);
-        return CreatedResponse("", usuario);
-    }
-    
+
     [HttpPatch("ativar/{id}")]
     [SwaggerOperation(Summary = "Desativar um Cliente.", Tags = new [] { "Gerencia - Cliente" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -19,7 +19,7 @@ public class AdministradoresAuthController : BaseController
     }
     
     [HttpPost]
-    [SwaggerOperation(Summary = "Login - Administrador.", Tags = new [] { "Administrador - Autenticação" })]
+    [SwaggerOperation(Summary = "Login - Administrador.", Tags = new [] { "Gerencia - Administrador Autenticação" })]
     [ProducesResponseType(typeof(AdministradorAutenticadoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginDto loginAdministrador)

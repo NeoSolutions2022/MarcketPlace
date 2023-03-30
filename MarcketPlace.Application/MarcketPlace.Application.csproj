@@ -4,6 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,11 +12,12 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="Azure.Core" Version="1.28.0" />
         <PackageReference Include="Azure.Storage.Blobs" Version="12.13.1" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
         <PackageReference Include="FluentEmail.Razor" Version="3.0.2" />
         <PackageReference Include="FluentValidation" Version="11.2.2" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.32" />
         <PackageReference Include="Hangfire.Core" Version="1.7.32" />
-        <PackageReference Include="Hangfire.MySqlStorage" Version="2.0.3" />
+        <PackageReference Include="Hangfire.SqlServer" Version="1.7.32" />
         <PackageReference Include="MailKit" Version="3.4.3" />
         <PackageReference Include="MediatR" Version="11.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -24,14 +26,20 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="6.0.0" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-        <!--        <PackageReference Include="NetDevPack.Security.Jwt.Core" Version="6.0.7" />-->
         <PackageReference Include="ScottBrady91.AspNetCore.Identity.Argon2PasswordHasher" Version="1.4.0" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.23.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\MarcketPlace.Core\MarcketPlace.Core.csproj" />
       <ProjectReference Include="..\MarcketPlace.Infra\MarcketPlace.Infra.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="FluentEmail.MailKit">
+            <HintPath>..\deps\FluentEmail.MailKit\FluentEmail.MailKit.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
