@@ -76,16 +76,16 @@ public class FornecedoresController : MainController
         return OkResponse(fornecedor);
     }
     
-    [HttpPost("{id}/resetar-senha")]
-    [SwaggerOperation(Summary = "Resetar a senha do Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
+    [HttpPost("{id}/alterar-senha")]
+    [SwaggerOperation(Summary = "Enviar email para alterar a senha.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> ResetarSenha(int id)
+    public async Task<IActionResult> AlterarSenha(int id)
     {
-        await _fornecedorService.ResetarSenha(id);
+        await _fornecedorService.AlterarSenha(id);
         return OkResponse();
     }
 }

@@ -161,7 +161,7 @@ public class FornecedorService : BaseService, IFornecedorService
         return null;
     }
 
-    public async Task ResetarSenha(int id)
+    public async Task AlterarSenha(int id)
     {
         var fornecedor = await _fornecedorRepository.FistOrDefault(f => f.Id == id);
         if (fornecedor == null)
@@ -178,11 +178,11 @@ public class FornecedorService : BaseService, IFornecedorService
         {
             _emailService.Enviar(
                 fornecedor.Email,
-                "Seu link para resetar a senha",
+                "Seu link para alterar a senha",
                 "Usuario/CodigoResetarSenha",
                 new
                 {
-                    Nome = fornecedor.Nome ?? fornecedor.Nome,
+                    fornecedor.Nome,
                     fornecedor.Email,
                     Codigo = fornecedor.CodigoResetarSenha,
                     Url = _appSettings.UrlComum,

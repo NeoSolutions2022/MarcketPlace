@@ -11,6 +11,7 @@ public interface IClienteService
     Task<ClienteDto?> ObterPorId(int id);
     Task<ClienteDto?> ObterPorEmail(string email);
     Task<ClienteDto?> ObterPorCpf(string cpf);
+    public Task AlterarSenha(int id);
     Task Desativar(int id);
     Task Reativar(int id);
 }

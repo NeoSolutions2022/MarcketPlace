@@ -2,12 +2,15 @@
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Cliente;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
 using MarcketPlace.Core.Enums;
+using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace MarcketPlace.Application.Services;
 
@@ -16,12 +19,16 @@ public class ClienteService : BaseService, IClienteService
     private readonly IClienteRepository _clienteRepository;
     private readonly IPasswordHasher<Cliente> _passwordHasher;
     private readonly IFileService _fileService;
+    private readonly AppSettings _appSettings;
+    private readonly IEmailService _emailService;
 
-    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher, IFileService fileService) : base(mapper, notificator)
+    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher, IFileService fileService, IOptions<AppSettings> appSettings, IEmailService emailService) : base(mapper, notificator)
     {
         _clienteRepository = clienteRepository;
         _passwordHasher = passwordHasher;
         _fileService = fileService;
+        _emailService = emailService;
+        _appSettings = appSettings.Value;
     }
 
     public async Task<PagedDto<ClienteDto>> Buscar(BuscarClienteDto dto)
@@ -138,6 +145,36 @@ public class ClienteService : BaseService, IClienteService
         
         Notificator.HandleNotFoundResource();
         return null;
+    }
+
+    public async Task AlterarSenha(int id)
+    {
+        var cliente = await _clienteRepository.FistOrDefault(f => f.Id == id);
+        if (cliente == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        cliente.CodigoResetarSenha = Guid.NewGuid();
+        cliente.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _clienteRepository.Alterar(cliente);
+        if (await _clienteRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                cliente.Email,
+                "Seu link para alterar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    Nome = cliente.NomeSocial ?? cliente.Nome,
+                    cliente.Email,
+                    Codigo = cliente.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
     }
 
     public async Task Desativar(int id)
