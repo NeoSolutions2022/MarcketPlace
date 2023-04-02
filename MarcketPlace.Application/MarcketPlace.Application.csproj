@@ -37,6 +37,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="Email\Templates\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
         <Reference Include="FluentEmail.MailKit">
             <HintPath>..\deps\FluentEmail.MailKit\FluentEmail.MailKit.dll</HintPath>
         </Reference>
