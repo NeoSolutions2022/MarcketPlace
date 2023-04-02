@@ -3,8 +3,10 @@ using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Cliente;
 using MarcketPlace.Application.Notification;
+using MarcketPlace.Core.Enums;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace MarcketPlace.Application.Services;
@@ -13,11 +15,13 @@ public class ClienteService : BaseService, IClienteService
 {
     private readonly IClienteRepository _clienteRepository;
     private readonly IPasswordHasher<Cliente> _passwordHasher;
+    private readonly IFileService _fileService;
 
-    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher) : base(mapper, notificator)
+    public ClienteService(IMapper mapper, INotificator notificator, IClienteRepository clienteRepository, IPasswordHasher<Cliente> passwordHasher, IFileService fileService) : base(mapper, notificator)
     {
         _clienteRepository = clienteRepository;
         _passwordHasher = passwordHasher;
+        _fileService = fileService;
     }
 
     public async Task<PagedDto<ClienteDto>> Buscar(BuscarClienteDto dto)
@@ -28,6 +32,11 @@ public class ClienteService : BaseService, IClienteService
 
     public async Task<ClienteDto?> Cadastrar(CadastrarClienteDto dto)
     {
+        if (!ValidarAnexos(dto))
+        {
+            return null;
+        }
+        
         if (dto.Senha != dto.ConfirmacaoSenha)
         {
             Notificator.Handle("As senhas não conferem!");
@@ -38,6 +47,11 @@ public class ClienteService : BaseService, IClienteService
         if (!await Validar(cliente))
         {
             return null;
+        }
+
+        if (dto.Foto is {Length: > 0})
+        {
+            cliente.Foto = await _fileService.Upload(dto.Foto, EUploadPath.FotoFornecedor);
         }
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
@@ -69,6 +83,11 @@ public class ClienteService : BaseService, IClienteService
 
         Mapper.Map(cliente, dto);
         if (!await Validar(cliente))
+        {
+            return null;
+        }
+        
+        if (dto.Foto is { Length: > 0 } && !await ManterFoto(dto.Foto, cliente))
         {
             return null;
         }
@@ -174,5 +193,28 @@ public class ClienteService : BaseService, IClienteService
         }
         
         return !Notificator.HasNotification;
+    }
+    
+    private bool ValidarAnexos(CadastrarClienteDto dto)
+    {
+        if (dto.Foto?.Length > 10000000)
+        {
+            Notificator.Handle("Foto deve ter no máximo 10Mb");
+        }
+
+        if (dto.Foto != null && dto.Foto.FileName.Split(".").Last() != "jfif" &&
+            dto.Foto.FileName.Split(".").Last() != "png" && dto.Foto.FileName.Split(".").Last() != "jpg" 
+            && dto.Foto.FileName.Split(".").Last() != "jpeg")
+        {
+            Notificator.Handle("Foto deve do tipo png, jfif ou jpg");
+        }
+
+        return !Notificator.HasNotification;
+    }
+    
+    private async Task<bool> ManterFoto(IFormFile foto, Cliente cliente)
+    {
+        cliente.Foto = await _fileService.Upload(foto, EUploadPath.FotoCliente);
+        return true;
     }
 }

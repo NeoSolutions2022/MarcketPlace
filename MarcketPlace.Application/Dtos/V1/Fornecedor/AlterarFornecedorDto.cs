@@ -1,4 +1,6 @@
-﻿namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
 
 public class AlterarFornecedorDto
 {
@@ -16,4 +18,5 @@ public class AlterarFornecedorDto
     public string Responsavel { get; set; } = null!;
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
+    public IFormFile? Foto { get; set; }
 }
