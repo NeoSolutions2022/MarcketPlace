@@ -9,6 +9,7 @@ public interface IFornecedorService
     Task<FornecedorDto?> Cadastrar(CadastrarFornecedorDto dto);
     Task<FornecedorDto?> Alterar(int id, AlterarFornecedorDto dto);
     Task<FornecedorDto?> ObterPorId(int id);
+    Task<FornecedorDto?> ObterProdutoServicos(int id);
     Task<FornecedorDto?> ObterPorEmail(string email);
     Task<FornecedorDto?> ObterPorCnpj(string cnpj);
     Task<FornecedorDto?> ObterPorCpf(string cpf);

@@ -8,6 +8,7 @@ using MarcketPlace.Application.Notification;
 using MarcketPlace.Core.Enums;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
+using Microsoft.Extensions.Azure;
 
 namespace MarcketPlace.Application.Services;
 
