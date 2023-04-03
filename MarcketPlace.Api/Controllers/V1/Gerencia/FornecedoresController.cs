@@ -24,7 +24,19 @@ public class FornecedoresController : MainController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ObterPorCpf(string cpf)
     {
-        var fornecedor = await _fornecedorService.ObterPorCnpj(cpf);
+        var fornecedor = await _fornecedorService.ObterPorCpf(cpf);
+        return OkResponse(fornecedor);
+    }
+    
+    [HttpGet("cnpj/{cnpj}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por cnpj.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterPorCnpj(string cnpj)
+    {
+        var fornecedor = await _fornecedorService.ObterPorCnpj(cnpj);
         return OkResponse(fornecedor);
     }
     
@@ -47,6 +59,17 @@ public class FornecedoresController : MainController
     public async Task<IActionResult> Reativar(int id)
     {
         await _fornecedorService.Reativar(id);
+        return NoContentResponse();
+    }
+    
+    [HttpDelete]
+    [SwaggerOperation(Summary = "Remover um Fornecedor.", Tags = new[] { "Gerencia - Cliente" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Remover(int id)
+    {
+        await _fornecedorService.Remover(id);
         return NoContentResponse();
     }
 }

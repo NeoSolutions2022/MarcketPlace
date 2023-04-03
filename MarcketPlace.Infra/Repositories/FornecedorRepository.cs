@@ -43,6 +43,11 @@ public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepositor
         return await Context.Fornecedores.FirstOrDefaultAsync(c => c.Cnpj == cnpj);
     }
 
+    public void Remover(Fornecedor fornecedor)
+    {
+        Context.Fornecedores.Remove(fornecedor);
+    }
+
     public async Task<IResultadoPaginado<Fornecedor>> Buscar(IBuscaPaginada<Fornecedor> filtro)
     {
         var query = Context.Fornecedores.AsQueryable();

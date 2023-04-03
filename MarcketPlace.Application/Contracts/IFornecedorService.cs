@@ -15,4 +15,5 @@ public interface IFornecedorService
     Task AlterarSenha(int id);
     Task Desativar(int id);
     Task Reativar(int id);
+    Task Remover(int id);
 }

@@ -86,4 +86,15 @@ public class ClientesController : MainController
         await _clienteService.Reativar(id);
         return NoContentResponse();
     }
+
+    [HttpDelete]
+    [SwaggerOperation(Summary = "Remover um Cliente.", Tags = new[] { "Gerencia - Cliente" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Remover(int id)
+    {
+        await _clienteService.Remover(id);
+        return NoContentResponse();
+    }
 }

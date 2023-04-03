@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Reflection.Metadata;
+using AutoMapper;
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Cliente;
@@ -213,6 +214,25 @@ public class ClienteService : BaseService, IClienteService
         }
         
         Notificator.Handle("Não foi possível reativar o cliente");
+    }
+
+    public async Task Remover(int id)
+    {
+        var cliente = await _clienteRepository.FistOrDefault(c => c.Id == id);
+        if (cliente == null)
+        {
+            Notificator.Handle("Não existe um cliente com o id informado");
+            return;
+        }
+        
+        _clienteRepository.Remover(cliente);
+        if (await _clienteRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível remover o cliente");
+        return;
     }
 
     private async Task<bool> Validar(Cliente cliente)

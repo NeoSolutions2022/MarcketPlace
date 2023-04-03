@@ -229,6 +229,25 @@ public class FornecedorService : BaseService, IFornecedorService
         Notificator.Handle("Não foi possível reativar o fornecedor");
     }
 
+    public async Task Remover(int id)
+    {
+        var fornecedor = await _fornecedorRepository.FistOrDefault(c => c.Id == id);
+        if (fornecedor == null)
+        {
+            Notificator.Handle("Não existe um fornecedor com o id informado");
+            return;
+        }
+        
+        _fornecedorRepository.Remover(fornecedor);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível remover o fornecedor");
+        return;
+    }
+
     private async Task<bool> Validar(Fornecedor fornecedor)
     {
         if (!fornecedor.Validar(out var validationResult))

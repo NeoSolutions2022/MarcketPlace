@@ -38,6 +38,11 @@ public class ClienteRepository : Repository<Cliente>, IClienteRepository
         return await Context.Clientes.FirstOrDefaultAsync(c => c.Cpf == cpf);
     }
 
+    public void Remover(Cliente cliente)
+    {
+        Context.Clientes.Remove(cliente);
+    }
+
     public async Task<IResultadoPaginado<Cliente>> Buscar(IBuscaPaginada<Cliente> filtro)
     {
         var query = Context.Clientes.AsQueryable();
