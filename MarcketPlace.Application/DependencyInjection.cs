@@ -48,6 +48,7 @@ public static class DependencyInjection
             .AddScoped<IProdutoServicoService, ProdutoServicoService>()
             .AddScoped<IFileService, FileService>()
             .AddScoped<IFornecedorAuthService, FornecedorAuthService>()
+            .AddScoped<IClienteAuthService, ClienteAuthService>()
             .AddScoped<INotificator, Notificator>()
             .AddScoped<IPasswordHasher<Cliente>, Argon2PasswordHasher<Cliente>>()
             .AddScoped<IPasswordHasher<Fornecedor>, Argon2PasswordHasher<Fornecedor>>()
