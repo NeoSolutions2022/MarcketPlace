@@ -27,6 +27,12 @@ public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepositor
     {
         return await Context.Fornecedores.FirstOrDefaultAsync(c => c.Id == id);
     }
+    public async Task<Fornecedor?> ObterProdutosServicos(int id)
+    {
+        return await Context.Fornecedores
+            .Include(c => c.ProdutoServicos)
+            .FirstOrDefaultAsync(c => c.Id == id);
+    }
 
     public async Task<Fornecedor?> ObterPorEmail(string email)
     {

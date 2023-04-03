@@ -1,4 +1,6 @@
-﻿namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
+﻿using MarcketPlace.Application.Dtos.V1.ProdutoServico;
+
+namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
 
 public class FornecedorDto
 {
@@ -17,4 +19,5 @@ public class FornecedorDto
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
     public string? Foto { get; set; }
+    public List<ProdutoServicoDto> ProdutoServicos { get; set; }
 }
