@@ -41,6 +41,18 @@ public class FornecedoresController : MainController
         return OkResponse(fornecedor);
     }
     
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterProdutosServices(int id)
+    {
+        var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
+        return OkResponse(fornecedor);
+    }
+    
     [HttpGet("email/{email}")]
     [SwaggerOperation(Summary = "Obter um Fornecedor por Email.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
@@ -74,6 +86,28 @@ public class FornecedoresController : MainController
     {
         var fornecedor = await _fornecedorService.Alterar(id, dto);
         return OkResponse(fornecedor);
+    }
+    
+    [HttpPatch("{id}/alterar-descricao")]
+    [SwaggerOperation(Summary = "Alterar descrição.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AlterarDescricao(int id, [FromBody] string descricao)
+    {
+        await _fornecedorService.AlterarDescricao(id, descricao);
+        return OkResponse();
+    }
+    
+    [HttpPatch("{id}/alterar-foto")]
+    [SwaggerOperation(Summary = "Alterar foto.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AlterarFoto(int id, [FromForm] IFormFile foto)
+    {
+        await _fornecedorService.AlterarFoto(id, foto);
+        return OkResponse();
     }
     
     [HttpPost("{id}/alterar-senha")]

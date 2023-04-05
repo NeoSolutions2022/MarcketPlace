@@ -19,6 +19,11 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .HasMaxLength(60);
         
         builder
+            .Property(c => c.Descricao)
+            .IsRequired(false)
+            .HasMaxLength(2000);
+        
+        builder
             .Property(c => c.Cnpj)
             .IsRequired()
             .HasMaxLength(14);
