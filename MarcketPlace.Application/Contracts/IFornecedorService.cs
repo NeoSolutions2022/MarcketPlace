@@ -1,5 +1,6 @@
 ﻿using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.Fornecedor;
+using Microsoft.AspNetCore.Http;
 
 namespace MarcketPlace.Application.Contracts;
 
@@ -15,6 +16,9 @@ public interface IFornecedorService
     Task<FornecedorDto?> ObterPorCpf(string cpf);
     Task AlterarSenha(int id);
     Task Desativar(int id);
+    Task AlterarDescricao(int id, string descricao);
+    
+    Task AlterarFoto(int id, IFormFile foto);
     Task Reativar(int id);
     Task Remover(int id);
 }

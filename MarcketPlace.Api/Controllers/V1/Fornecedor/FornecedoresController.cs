@@ -89,25 +89,25 @@ public class FornecedoresController : MainController
     }
     
     [HttpPatch("{id}/alterar-descricao")]
-    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
-    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [SwaggerOperation(Summary = "Alterar descrição.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> AlterarDescricao(int id)
+    public async Task<IActionResult> AlterarDescricao(int id, [FromBody] string descricao)
     {
-        // var fornecedor = await _fornecedorService.Alterar(id, dto);
-        return OkResponse(fornecedor);
+        await _fornecedorService.AlterarDescricao(id, descricao);
+        return OkResponse();
     }
     
     [HttpPatch("{id}/alterar-foto")]
-    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
-    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [SwaggerOperation(Summary = "Alterar foto.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> AlterarFoto(int id)
+    public async Task<IActionResult> AlterarFoto(int id, [FromForm] IFormFile foto)
     {
-        // var fornecedor = await _fornecedorService.Alterar(id, dto);
-        return OkResponse(fornecedor);
+        await _fornecedorService.AlterarFoto(id, foto);
+        return OkResponse();
     }
     
     [HttpPost("{id}/alterar-senha")]
