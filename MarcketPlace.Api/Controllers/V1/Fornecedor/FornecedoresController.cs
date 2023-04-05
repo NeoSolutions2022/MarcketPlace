@@ -41,6 +41,18 @@ public class FornecedoresController : MainController
         return OkResponse(fornecedor);
     }
     
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterProdutosServices(int id)
+    {
+        var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
+        return OkResponse(fornecedor);
+    }
+    
     [HttpGet("email/{email}")]
     [SwaggerOperation(Summary = "Obter um Fornecedor por Email.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
@@ -73,6 +85,28 @@ public class FornecedoresController : MainController
     public async Task<IActionResult> Alterar(int id, [FromForm] AlterarFornecedorDto dto)
     {
         var fornecedor = await _fornecedorService.Alterar(id, dto);
+        return OkResponse(fornecedor);
+    }
+    
+    [HttpPatch("{id}/alterar-descricao")]
+    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AlterarDescricao(int id)
+    {
+        // var fornecedor = await _fornecedorService.Alterar(id, dto);
+        return OkResponse(fornecedor);
+    }
+    
+    [HttpPatch("{id}/alterar-foto")]
+    [SwaggerOperation(Summary = "Atualizar um Fornecedor.", Tags = new [] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AlterarFoto(int id)
+    {
+        // var fornecedor = await _fornecedorService.Alterar(id, dto);
         return OkResponse(fornecedor);
     }
     

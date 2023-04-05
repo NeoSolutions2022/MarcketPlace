@@ -172,6 +172,8 @@ public class FornecedorService : BaseService, IFornecedorService
         Notificator.HandleNotFoundResource();
         return null;
     }
+    
+    
 
     public async Task AlterarSenha(int id)
     {
