@@ -37,22 +37,10 @@ public class FornecedoresController : MainController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ObterPorId(int id)
     {
-        var fornecedor = await _fornecedorService.ObterPorId(id);
-        return OkResponse(fornecedor);
-    }
-    
-    [HttpGet("{id}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new [] { "Usuario - Fornecedor" })]
-    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> ObterProdutosServices(int id)
-    {
         var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
         return OkResponse(fornecedor);
     }
-    
+
     [HttpGet("email/{email}")]
     [SwaggerOperation(Summary = "Obter um Fornecedor por Email.", Tags = new [] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
