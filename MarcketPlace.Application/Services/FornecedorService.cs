@@ -84,24 +84,19 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         var fornecedor = await _fornecedorRepository.ObterPorId(id);
+        var foto = fornecedor?.Foto;
         if (fornecedor == null)
         {
             Notificator.HandleNotFoundResource();
             return null;
         }
 
-        Mapper.Map(fornecedor, dto);
+        Mapper.Map(dto, fornecedor);
         if (!await Validar(fornecedor))
         {
             return null;
         }
         
-        if (dto.Foto is { Length: > 0 } && !await ManterFoto(dto.Foto, fornecedor))
-        {
-            return null;
-        }
-        
-        fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
         fornecedor.Uf = fornecedor.Uf.ToLower();
         _fornecedorRepository.Alterar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
@@ -172,6 +167,8 @@ public class FornecedorService : BaseService, IFornecedorService
         Notificator.HandleNotFoundResource();
         return null;
     }
+    
+    
 
     public async Task AlterarSenha(int id)
     {
@@ -232,6 +229,44 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         fornecedor.Desativado = false;
+        _fornecedorRepository.Alterar(fornecedor);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível reativar o fornecedor");
+    }
+    
+    public async Task AlterarDescricao(int id, string descricao)
+    {
+        var fornecedor = await _fornecedorRepository.ObterPorId(id);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        fornecedor.Descricao = descricao;
+        _fornecedorRepository.Alterar(fornecedor);
+        if (await _fornecedorRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível reativar o fornecedor");
+    }
+    
+    public async Task AlterarFoto(int id, IFormFile foto)
+    {
+        var fornecedor = await _fornecedorRepository.ObterPorId(id);
+        if (fornecedor == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        fornecedor.Foto = await _fileService.Upload(foto, EUploadPath.FotoFornecedor);
         _fornecedorRepository.Alterar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
         {

@@ -43,7 +43,7 @@ public class ProdutosServicoController : MainController
     [SwaggerOperation(Summary = "Cadastrar Produto/Serviço - Fornecedor.", Tags = new [] { "Fornecedor - Produto-Serviço" })]
     [ProducesResponseType(typeof(ProdutoServicoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Cadastrar([FromBody] CadastrarProdutoServicoDto dto)
+    public async Task<IActionResult> Cadastrar([FromForm] CadastrarProdutoServicoDto dto)
     {
         var produtoServico = await _produtoServicoService.Adicionar(dto);
         return OkResponse(produtoServico);

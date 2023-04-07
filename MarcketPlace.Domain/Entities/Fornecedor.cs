@@ -15,7 +15,9 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
     public string Cpf { get; set; } = null!;
     public bool Desativado { get; set; }
     public string Email { get; set; } = null!;
+    public string? Descricao { get; set; }
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public string Nome { get; set; } = null!;
     public int Numero { get; set; }
     public string Responsavel { get; set; } = null!;
