@@ -13,6 +13,7 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
     public string? Cep { get; set; }
     public string? Cidade { get; set; }
     public string? Uf { get; set; }
+    public string? Bairro { get; set; }
 
     public override void AplicarFiltro(ref IQueryable<Domain.Entities.Cliente> query)
     {
@@ -58,6 +59,11 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
             query = query.Where(c => c.Desativado == Desativado.Value);
         }
 
+        if (!string.IsNullOrWhiteSpace(Bairro))
+        {
+            query = query.Where(c => c.Bairro.Contains(Bairro));
+        }
+
         query = query.Where(expression);
     }
 
@@ -71,6 +77,7 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
                 "nomesocial" => query.OrderBy(c => c.NomeSocial),
                 "inadiplente" => query.OrderBy(c => c.Inadiplente),
                 "datapagamento" => query.OrderBy(c => c.DataPagamento),
+                "bairro" => query.OrderBy(c => c.Bairro),
                 "cep" => query.OrderBy(c => c.Cep),
                 "cidade" => query.OrderBy(c => c.Cidade),
                 "uf" => query.OrderBy(c => c.Uf),
@@ -87,6 +94,7 @@ public class BuscarClienteDto : BuscaPaginadaDto<Domain.Entities.Cliente>
             "inadiplente" => query.OrderByDescending(c => c.Inadiplente),
             "cep" => query.OrderByDescending(c => c.Cep),
             "cidade" => query.OrderByDescending(c => c.Cidade),
+            "bairro" => query.OrderByDescending(c => c.Bairro),
             "uf" => query.OrderByDescending(c => c.Uf),
             "datapagamento" => query.OrderByDescending(c => c.DataPagamento),
             "desativado" => query.OrderByDescending(c => c.Desativado),

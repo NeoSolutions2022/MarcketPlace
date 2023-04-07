@@ -17,7 +17,7 @@ public class AlterarClienteDto
     public string Cidade { get; set; } = null!;
     public string Uf { get; set; } = null!;
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public int Numero { get; set; }
     public string? Complemento { get; set; }
-    public IFormFile? Foto { get; set; }
 }

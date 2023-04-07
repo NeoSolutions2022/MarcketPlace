@@ -13,6 +13,7 @@ public class FornecedorDto
     public bool Desativado { get; set; }
     public string Email { get; set; } = null!;
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public string Nome { get; set; } = null!;
     public int Numero { get; set; }
     public string Responsavel { get; set; } = null!;

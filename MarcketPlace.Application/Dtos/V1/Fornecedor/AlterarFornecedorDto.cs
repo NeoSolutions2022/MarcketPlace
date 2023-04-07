@@ -13,10 +13,10 @@ public class AlterarFornecedorDto
     public bool Desativado { get; set; }
     public string Email { get; set; } = null!;
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public string Nome { get; set; } = null!;
     public int Numero { get; set; }
     public string Responsavel { get; set; } = null!;
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
-    public IFormFile? Foto { get; set; }
 }

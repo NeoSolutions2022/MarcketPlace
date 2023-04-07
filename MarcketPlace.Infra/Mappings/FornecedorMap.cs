@@ -9,6 +9,11 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
     public void Configure(EntityTypeBuilder<Fornecedor> builder)
     {
         builder
+            .Property(c => c.Bairro)
+            .IsRequired()
+            .HasMaxLength(30);
+        
+        builder
             .Property(c => c.Cep)
             .IsRequired()
             .HasMaxLength(9);

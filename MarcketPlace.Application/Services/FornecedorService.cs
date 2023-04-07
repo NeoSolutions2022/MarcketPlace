@@ -84,24 +84,19 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         var fornecedor = await _fornecedorRepository.ObterPorId(id);
+        var foto = fornecedor?.Foto;
         if (fornecedor == null)
         {
             Notificator.HandleNotFoundResource();
             return null;
         }
 
-        Mapper.Map(fornecedor, dto);
+        Mapper.Map(dto, fornecedor);
         if (!await Validar(fornecedor))
         {
             return null;
         }
         
-        if (dto.Foto is { Length: > 0 } && !await ManterFoto(dto.Foto, fornecedor))
-        {
-            return null;
-        }
-        
-        fornecedor.Senha = _passwordHasher.HashPassword(fornecedor, fornecedor.Senha);
         fornecedor.Uf = fornecedor.Uf.ToLower();
         _fornecedorRepository.Alterar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
