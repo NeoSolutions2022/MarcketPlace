@@ -149,12 +149,15 @@ public class ClienteAuthService : BaseService, IClienteAuthService
         var key = Encoding.ASCII.GetBytes(Settings.Settings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[]
+            Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, cliente.Id.ToString()),
                 new Claim(ClaimTypes.Name, cliente.Nome),
                 new Claim(ClaimTypes.Email, cliente.Email),
-                new Claim("TipoUsuario", ETipoUsuario.Comum.ToDescriptionString())
+                new Claim("TipoUsuario", ETipoUsuario.Cliente.ToDescriptionString()),
+                new Claim("Administrador", ETipoUsuario.Cliente.ToDescriptionString()),
+                new Claim("Fornecedor", ETipoUsuario.Cliente.ToDescriptionString()),
+                new Claim("Cliente", ETipoUsuario.Cliente.ToDescriptionString()),
             }),
             Expires = DateTime.UtcNow.AddHours(2),
             SigningCredentials =

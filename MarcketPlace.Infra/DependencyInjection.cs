@@ -35,8 +35,6 @@ public static class DependencyInjection
         
         service.AddScoped<BaseApplicationDbContext>(serviceProvider =>
         {
-            // var autenticatedUser = serviceProvider.GetRequiredService<IAuthenticatedUser>();
-
             return serviceProvider.GetRequiredService<ApplicationDbContext>();
         });
     }

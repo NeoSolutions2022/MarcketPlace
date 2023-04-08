@@ -25,7 +25,9 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
     private readonly IEmailService _emailService;
     private readonly AppSettings _appSettings;
 
-    public FornecedorAuthService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository, IPasswordHasher<Fornecedor> fornecedorpasswordHasher, IEmailService emailService, IOptions<AppSettings> appSettings) : base(mapper, notificator)
+    public FornecedorAuthService(IMapper mapper, INotificator notificator, IFornecedorRepository fornecedorRepository,
+        IPasswordHasher<Fornecedor> fornecedorpasswordHasher, IEmailService emailService,
+        IOptions<AppSettings> appSettings) : base(mapper, notificator)
     {
         _fornecedorRepository = fornecedorRepository;
         _fornecedorpasswordHasher = fornecedorpasswordHasher;
@@ -53,7 +55,7 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
                 Token = await CreateTokenFornecedor(fornecedor)
             };
         }
-        
+
         Notificator.Handle("Combinação de email e senha incorreta!");
         return null;
     }
@@ -72,7 +74,7 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
         {
             return true;
         }
-        
+
         Notificator.Handle("Código inválido ou expirado!");
         return false;
     }
@@ -117,7 +119,8 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
             return;
         }
 
-        if (!(fornecedor.CodigoResetarSenha == dto.CodigoResetarSenha && fornecedor.CodigoResetarSenhaExpiraEm >= DateTime.Now))
+        if (!(fornecedor.CodigoResetarSenha == dto.CodigoResetarSenha &&
+              fornecedor.CodigoResetarSenhaExpiraEm >= DateTime.Now))
         {
             Notificator.Handle("Código inválido ou expirado!");
             return;
@@ -132,7 +135,7 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
         fornecedor.Senha = _fornecedorpasswordHasher.HashPassword(fornecedor, dto.Senha);
         fornecedor.CodigoResetarSenha = null;
         fornecedor.CodigoResetarSenhaExpiraEm = null;
-        
+
         _fornecedorRepository.Alterar(fornecedor);
         if (!await _fornecedorRepository.UnitOfWork.Commit())
         {
@@ -146,15 +149,19 @@ public class FornecedorAuthService : BaseService, IFornecedorAuthService
         var key = Encoding.ASCII.GetBytes(Settings.Settings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[]
+            Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, fornecedor.Id.ToString()),
                 new Claim(ClaimTypes.Name, fornecedor.Nome),
                 new Claim(ClaimTypes.Email, fornecedor.Email),
-                new Claim("TipoUsuario", ETipoUsuario.Comum.ToDescriptionString())
+                new Claim("TipoUsuario", ETipoUsuario.Fornecedor.ToDescriptionString()),
+                new Claim("Administrador", ETipoUsuario.Fornecedor.ToDescriptionString()),
+                new Claim("Fornecedor", ETipoUsuario.Fornecedor.ToDescriptionString()),
+                new Claim("Cliente", ETipoUsuario.Fornecedor.ToDescriptionString()),
             }),
             Expires = DateTime.UtcNow.AddHours(2),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return Task.FromResult(tokenHandler.WriteToken(token));
