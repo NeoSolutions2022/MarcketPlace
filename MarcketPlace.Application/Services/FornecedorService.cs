@@ -262,7 +262,7 @@ public class FornecedorService : BaseService, IFornecedorService
         Notificator.Handle("Não foi possível reativar o fornecedor");
     }
     
-    public async Task AlterarFoto(int id, IFormFile foto)
+    public async Task AlterarFoto(int id, AlterarFotoFornecedorDto foto)
     {
         var fornecedor = await _fornecedorRepository.ObterPorId(id);
         if (fornecedor == null)
@@ -271,7 +271,7 @@ public class FornecedorService : BaseService, IFornecedorService
             return;
         }
 
-        fornecedor.Foto = await _fileService.Upload(foto, EUploadPath.FotoFornecedor);
+        fornecedor.Foto = await _fileService.Upload(foto.Foto, EUploadPath.FotoFornecedor);
         _fornecedorRepository.Alterar(fornecedor);
         if (await _fornecedorRepository.UnitOfWork.Commit())
         {

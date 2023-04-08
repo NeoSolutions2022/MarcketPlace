@@ -20,3 +20,8 @@ public class AlterarFornecedorDto
     public string Uf { get; set; } = null!;
     public IFormFile? Foto { get; set; }
 }
+
+public class AlterarFotoFornecedorDto
+{
+    public IFormFile Foto { get; set; }
+}

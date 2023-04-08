@@ -18,7 +18,7 @@ public interface IFornecedorService
     Task Desativar(int id);
     Task AlterarDescricao(int id, string descricao);
     
-    Task AlterarFoto(int id, IFormFile foto);
+    Task AlterarFoto(int id, AlterarFotoFornecedorDto foto);
     Task Reativar(int id);
     Task Remover(int id);
 }

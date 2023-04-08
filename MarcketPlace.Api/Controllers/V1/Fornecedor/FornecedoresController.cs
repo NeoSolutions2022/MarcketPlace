@@ -92,7 +92,7 @@ public class FornecedoresController : MainController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> AlterarFoto(int id, [FromForm] IFormFile foto)
+    public async Task<IActionResult> AlterarFoto(int id, [FromForm] AlterarFotoFornecedorDto foto)
     {
         await _fornecedorService.AlterarFoto(id, foto);
         return OkResponse();
