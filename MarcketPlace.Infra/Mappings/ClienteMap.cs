@@ -9,6 +9,11 @@ public class ClienteMap : IEntityTypeConfiguration<Cliente>
     public void Configure(EntityTypeBuilder<Cliente> builder)
     {
         builder
+            .Property(c => c.Bairro)
+            .IsRequired()
+            .HasMaxLength(30);
+        
+        builder
             .Property(c => c.Cep)
             .IsRequired()
             .HasMaxLength(9);

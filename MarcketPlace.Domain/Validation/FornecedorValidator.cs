@@ -7,6 +7,14 @@ public class FornecedorValidator : AbstractValidator<Fornecedor>
 {
     public FornecedorValidator()
     {
+        RuleFor(u => u.Bairro)
+            .MinimumLength(3)
+            .WithMessage("Bairro deve ter no mínimo 3 caracteres!")
+            .MaximumLength(30)
+            .WithMessage("Bairro deve ter no máximo 30 caracteres!")
+            .NotEmpty()
+            .WithMessage("Bairro não pode ser vazio!");
+        
         RuleFor(u => u.Cep)
             .MinimumLength(8)
             .WithMessage("Cep deve ter no mínimo 8 caracteres!")
@@ -85,8 +93,6 @@ public class FornecedorValidator : AbstractValidator<Fornecedor>
         RuleFor(u => u.Senha)
             .MinimumLength(8)
             .WithMessage("Senha deve ter no mínimo 8 caracteres!")
-            .MaximumLength(15)
-            .WithMessage("Senha deve ter no máximo 15 caracteres!")
             .NotEmpty()
             .WithMessage("Senha não pode ser vazio!");
         

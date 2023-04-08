@@ -9,6 +9,7 @@ public class CadastrarFornecedorDto
     public string Cep { get; set; } = null!;
     public string Cidade { get; set; } = null!;
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public int Numero { get; set; }
     public string Uf { get; set; } = null!;
     public string? Cnpj { get; set; }

@@ -89,13 +89,8 @@ public class ClienteService : BaseService, IClienteService
             return null;
         }
 
-        Mapper.Map(cliente, dto);
+        Mapper.Map(dto, cliente);
         if (!await Validar(cliente))
-        {
-            return null;
-        }
-        
-        if (dto.Foto is { Length: > 0 } && !await ManterFoto(dto.Foto, cliente))
         {
             return null;
         }
