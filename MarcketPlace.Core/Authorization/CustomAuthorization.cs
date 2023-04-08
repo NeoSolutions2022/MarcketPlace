@@ -18,7 +18,13 @@ public static class CustomAuthorization
 
     public static bool ValidateUserType(HttpContext context, string claimName, string claimValue)
     {
-        return context.User.Identity!.IsAuthenticated && context.User.ObterTipoUsuario() == claimValue;
+        return claimName switch
+        {
+            "Administrador" => context.User.Identity!.IsAuthenticated &&
+                               context.User.ObterTipoAdministrador() == claimValue,
+            "Fornecedor" => context.User.Identity!.IsAuthenticated && context.User.ObterTipoFornecedor() == claimValue,
+            _ => context.User.Identity!.IsAuthenticated && context.User.ObterTipoCliente() == claimValue
+        };
     }
 }
 
@@ -51,7 +57,27 @@ public class RequirementClaimFilter : IAuthorizationFilter
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        if (_claim.Type == "TipoUsuario")
+        if (_claim.Type == "Administrador")
+        {
+            if (!CustomAuthorization.ValidateUserType(context.HttpContext, _claim.Type, _claim.Value))
+            {
+                context.Result = new StatusCodeResult(403);
+            }
+
+            return;
+        }
+
+        if (_claim.Type == "Fornecedor")
+        {
+            if (!CustomAuthorization.ValidateUserType(context.HttpContext, _claim.Type, _claim.Value))
+            {
+                context.Result = new StatusCodeResult(403);
+            }
+
+            return;
+        }
+
+        if (_claim.Type == "Cliente")
         {
             if (!CustomAuthorization.ValidateUserType(context.HttpContext, _claim.Type, _claim.Value))
             {

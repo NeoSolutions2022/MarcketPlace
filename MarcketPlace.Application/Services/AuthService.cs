@@ -18,8 +18,9 @@ public class AuthService : BaseService, IAuthService
 {
     private readonly IAdministradorRepository _administradorRepository;
     private readonly IPasswordHasher<Administrador> _admPasswordHasher;
-    
-    public AuthService(IMapper mapper, INotificator notificator, IAdministradorRepository administradorRepository, IPasswordHasher<Administrador> admPasswordHasher) : base(mapper, notificator)
+
+    public AuthService(IMapper mapper, INotificator notificator, IAdministradorRepository administradorRepository,
+        IPasswordHasher<Administrador> admPasswordHasher) : base(mapper, notificator)
     {
         _administradorRepository = administradorRepository;
         _admPasswordHasher = admPasswordHasher;
@@ -45,7 +46,7 @@ public class AuthService : BaseService, IAuthService
                 Token = await CreateToken(administrador)
             };
         }
-        
+
         Notificator.Handle("Combinação de email e senha incorreta!");
         return null;
     }
@@ -56,15 +57,19 @@ public class AuthService : BaseService, IAuthService
         var key = Encoding.ASCII.GetBytes(Settings.Settings.Secret);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new Claim[]
+            Subject = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, administrador.Id.ToString()),
                 new Claim(ClaimTypes.Name, administrador.Nome),
                 new Claim(ClaimTypes.Email, administrador.Email),
-                new Claim("TipoUsuario", ETipoUsuario.Administrador.ToDescriptionString())
+                new Claim("TipoUsuario", ETipoUsuario.Administrador.ToDescriptionString()),
+                new Claim("Administrador", ETipoUsuario.Administrador.ToDescriptionString()),
+                new Claim("Fornecedor", ETipoUsuario.Fornecedor.ToDescriptionString()),
+                new Claim("Cliente", ETipoUsuario.Cliente.ToDescriptionString()),
             }),
             Expires = DateTime.UtcNow.AddHours(2),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return Task.FromResult(tokenHandler.WriteToken(token));

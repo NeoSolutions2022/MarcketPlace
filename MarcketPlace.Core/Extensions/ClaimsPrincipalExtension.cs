@@ -26,6 +26,13 @@ public static class ClaimsPrincipalExtension
 
     public static string? ObterTipoUsuario(this ClaimsPrincipal? principal) => GetClaim(principal, "TipoUsuario");
 
+    public static string? ObterTipoAdministrador(this ClaimsPrincipal? principal) =>
+        GetClaim(principal, "Administrador");
+
+    public static string? ObterTipoFornecedor(this ClaimsPrincipal? principal) => GetClaim(principal, "Fornecedor");
+
+    public static string? ObterTipoCliente(this ClaimsPrincipal? principal) => GetClaim(principal, "Cliente");
+
     public static string? ObterUsuarioId(this ClaimsPrincipal? principal) =>
         GetClaim(principal, ClaimTypes.NameIdentifier);
 

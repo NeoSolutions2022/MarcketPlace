@@ -3,11 +3,11 @@ using MarcketPlace.Core.Authorization;
 using MarcketPlace.Core.Enums;
 using Microsoft.AspNetCore.Authorization;
 
-namespace MarcketPlace.Api.Controllers.V1.Gerencia;
+namespace MarcketPlace.Api.Controllers.V1.Cliente;
 
 [Authorize]
-[ClaimsAuthorize("Administrador", ETipoUsuario.Administrador)]
-public abstract class MainController : BaseController
+[ClaimsAuthorize("Cliente", ETipoUsuario.Cliente)]
+public class MainController : BaseController
 {
     protected MainController(INotificator notificator) : base(notificator)
     {
