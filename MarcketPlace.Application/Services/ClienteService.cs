@@ -64,6 +64,7 @@ public class ClienteService : BaseService, IClienteService
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
         cliente.Uf = cliente.Uf.ToLower();
+        cliente.CriadoEm = DateTime.Now;
         _clienteRepository.Adicionar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {
@@ -97,6 +98,7 @@ public class ClienteService : BaseService, IClienteService
         
         cliente.Senha = _passwordHasher.HashPassword(cliente, cliente.Senha);
         cliente.Uf = cliente.Uf.ToLower();
+        cliente.AtualizadoEm = DateTime.Now;
         _clienteRepository.Alterar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {
@@ -183,6 +185,7 @@ public class ClienteService : BaseService, IClienteService
         }
 
         cliente.Desativado = true;
+        cliente.AtualizadoEm = DateTime.Now;
         _clienteRepository.Alterar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {
@@ -202,6 +205,7 @@ public class ClienteService : BaseService, IClienteService
         }
 
         cliente.Desativado = false;
+        cliente.AtualizadoEm = DateTime.Now;
         _clienteRepository.Alterar(cliente);
         if (await _clienteRepository.UnitOfWork.Commit())
         {

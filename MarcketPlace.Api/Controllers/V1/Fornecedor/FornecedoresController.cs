@@ -29,6 +29,17 @@ public class FornecedoresController : MainController
         var fornecedor = await _fornecedorService.Buscar(dto);
         return OkResponse(fornecedor);
     }
+    
+    [HttpGet("anuncios-fornecedores")]
+    [SwaggerOperation(Summary = "Listagem dos anúncios de fornecedores", Tags = new[] { "Usuario - Fornecedor" })]
+    [ProducesResponseType(typeof(PagedDto<FornecedorDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> BuscarAnuncio()
+    {
+        var fornecedor = await _fornecedorService.BuscarAnuncio();
+        return OkResponse(fornecedor);
+    }
 
     [HttpGet("{id}")]
     [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new[] { "Usuario - Fornecedor" })]
