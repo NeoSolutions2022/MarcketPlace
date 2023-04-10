@@ -13,6 +13,7 @@ public class BuscarFornecedorDto : BuscaPaginadaDto<Domain.Entities.Fornecedor>
     public string? Uf { get; set; }
     public string? Bairro { get; set; }
     public string? Categoria { get; set; }
+    public bool? AnuncioPago { get; set; }
 
     public override void AplicarFiltro(ref IQueryable<Domain.Entities.Fornecedor> query)
     {
@@ -56,6 +57,11 @@ public class BuscarFornecedorDto : BuscaPaginadaDto<Domain.Entities.Fornecedor>
         if (!string.IsNullOrWhiteSpace(Categoria))
         {
             query = query.Where(c => c.Categoria.Contains(Categoria));
+        }
+
+        if (AnuncioPago.HasValue)
+        {
+            query = query.Where(c => c.AnuncioPago == AnuncioPago);
         }
 
         query = query.Where(expression);

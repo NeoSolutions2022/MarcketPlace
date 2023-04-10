@@ -28,7 +28,7 @@ public class FornecedoresController : MainController
         return OkResponse(fornecedor);
     }
     
-    [HttpPatch("ativar/{id}")]
+    [HttpPatch("desativar/{id}")]
     [SwaggerOperation(Summary = "Desativar um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -47,6 +47,28 @@ public class FornecedoresController : MainController
     public async Task<IActionResult> Reativar(int id)
     {
         await _fornecedorService.Reativar(id);
+        return NoContentResponse();
+    }
+    
+    [HttpPatch("ativar-anuncio/{id}")]
+    [SwaggerOperation(Summary = "Ativar anúncio para um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AtivarAnuncio(int id)
+    {
+        await _fornecedorService.AtivarAnuncio(id);
+        return NoContentResponse();
+    }
+    
+    [HttpPatch("desativar-anuncio/{id}")]
+    [SwaggerOperation(Summary = "Desativar anúncio para um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> DesativarAnuncio(int id)
+    {
+        await _fornecedorService.DesativarAnuncio(id);
         return NoContentResponse();
     }
 

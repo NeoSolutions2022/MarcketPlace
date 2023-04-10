@@ -39,15 +39,4 @@ public class ClientesController : MainController
         await _clienteService.AlterarSenha(id);
         return OkResponse();
     }
-    
-    [HttpGet("{id}")]
-    [SwaggerOperation(Summary = "Atualizar um Cliente.", Tags = new[] { "Usuario - Cliente" })]
-    [ProducesResponseType(typeof(ClienteDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> Alterar(int id)
-    {
-        var usuario = await _clienteService.ObterPorId(id);
-        return OkResponse(usuario);
-    }
 }

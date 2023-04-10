@@ -90,7 +90,10 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Uf)
             .IsRequired()
             .HasMaxLength(2);
-        
+
+        builder.Property(c => c.AnuncioPago)
+            .HasDefaultValue(false);
+
         builder
             .Property(c => c.CodigoResetarSenha)
             .HasColumnType("CHAR(64)")

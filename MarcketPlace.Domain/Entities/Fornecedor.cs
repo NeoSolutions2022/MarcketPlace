@@ -1,10 +1,11 @@
 ﻿using FluentValidation.Results;
 using MarcketPlace.Domain.Contracts;
+using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Validation;
 
 namespace MarcketPlace.Domain.Entities;
 
-public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
+public class Fornecedor : Entity, IAggregateRoot, ISoftDelete, IAnunciavel
 {
     public string Cep { get; set; } = null!;
     public string Cidade { get; set; } = null!;
@@ -27,6 +28,9 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
     public string Uf { get; set; } = null!;
     public string? Foto { get; set; }
     
+    public bool AnuncioPago { get; set; }
+    public DateTime? DataPagamentoAnuncio { get; set; }
+    public DateTime? DataExpiracaoAnuncio { get; set; }
     public List<ProdutoServico> ProdutoServicos { get; set; } = new();
 
     public override bool Validar(out ValidationResult validationResult)
@@ -34,4 +38,5 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
         validationResult = new FornecedorValidator().Validate(this);
         return validationResult.IsValid;
     }
+
 }
