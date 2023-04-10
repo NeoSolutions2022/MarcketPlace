@@ -15,6 +15,7 @@ public class AlterarFornecedorDto
     public string Endereco { get; set; } = null!;
     public string Bairro { get; set; } = null!;
     public string Nome { get; set; } = null!;
+    public string? Descricao { get; set; }
     public int Numero { get; set; }
     public string Responsavel { get; set; } = null!;
     public string? Telefone { get; set; }

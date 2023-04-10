@@ -6,6 +6,7 @@ namespace MarcketPlace.Application.Dtos.V1.Fornecedor;
 public class CadastrarFornecedorDto
 {
     public string Nome { get; set; } = null!;
+    public string? Descricao { get; set; }
     public string Cep { get; set; } = null!;
     public string Cidade { get; set; } = null!;
     public string Endereco { get; set; } = null!;
