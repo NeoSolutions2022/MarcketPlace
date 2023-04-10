@@ -19,6 +19,7 @@ public class AlterarFornecedorDto
     public string Responsavel { get; set; } = null!;
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
+    public string Categoria { get; set; } = null!;
 }
 
 public class AlterarFotoFornecedorDto

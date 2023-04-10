@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace MarcketPlace.Application.Dtos.V1.Cliente;
+﻿namespace MarcketPlace.Application.Dtos.V1.Cliente;
 
 public class AlterarClienteDto
 {

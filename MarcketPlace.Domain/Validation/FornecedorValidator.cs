@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Data;
+using FluentValidation;
 using MarcketPlace.Domain.Entities;
 
 namespace MarcketPlace.Domain.Validation;
@@ -14,7 +15,13 @@ public class FornecedorValidator : AbstractValidator<Fornecedor>
             .WithMessage("Bairro deve ter no máximo 30 caracteres!")
             .NotEmpty()
             .WithMessage("Bairro não pode ser vazio!");
-        
+
+        RuleFor(c => c.Categoria)
+            .NotNull()
+            .WithMessage("Categoria não pode ser nula")
+            .NotEmpty()
+            .WithMessage("Categoria deve conter ao menos um item");
+
         RuleFor(u => u.Cep)
             .MinimumLength(8)
             .WithMessage("Cep deve ter no mínimo 8 caracteres!")

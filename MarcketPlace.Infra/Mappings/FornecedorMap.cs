@@ -12,6 +12,10 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Bairro)
             .IsRequired()
             .HasMaxLength(30);
+
+        builder
+            .Property(c => c.Categoria)
+            .IsRequired();
         
         builder
             .Property(c => c.Cep)

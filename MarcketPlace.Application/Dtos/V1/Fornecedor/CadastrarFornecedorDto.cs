@@ -18,6 +18,7 @@ public class CadastrarFornecedorDto
     public bool Desativado { get; set; }
     public string Email { get; set; } = null!;
     public string Responsavel { get; set; } = null!;
+    public string Categoria { get; set; } = null!;
     public string Senha { get; set; } = null!;
     public string? Telefone { get; set; }
     [Required(ErrorMessage = "A confirmação da senha é necessária")]
