@@ -1,69 +1,121 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		@@media (max-width: 768px) {
+			.background-blue{
+				width: 100% !important;
+				padding: 0;
+			}			
+			.wrapper{
+				height: 20rem !important;
+			}
+			.wrapper div{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}			
+		}
+		
+		.container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+		}
+		h2 img{
+			height: 3rem;
+		}
+
+		.title {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap:.5rem;
+			width: 60%;
+			font-size: 2.5rem;
+			text-align: center;
+			font-family: Arial, sans-serif;
+			padding-bottom: 10px;
+			border-bottom: 3px solid #ffffff;
+		}
+
+		.button {
+			display: block;
+			padding: 10px 20px;
+			max-width: 110px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			font-family: Arial, sans-serif;
+			text-decoration: none;
+		}
+		.button:hover{
+			filter: brightness(.9);
+		}
+		
+		.description {
+			display: flex;
+			font-size: 1.5rem;
+			text-align: center;
+			font-family: Arial, sans-serif;
+			padding-bottom: 10px;
+			
+		}
+		.background-blue { 
+			width: 50%;
+		}
+		.wrapper{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height: 31.25rem;
+			justify-content: space-between;
+			background-color: #f7f5f5 ;
+		}
+		.header{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #023163b7;
+			padding: 1rem 0;
+			width: 100%;
+			color: #f7f5f5;
+		}
+		.content{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	</style>
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: #FCFCFC;
-        display: flex;
-        justify-content: center;
-    }
-
-    main {
-        background-color: #FFF;
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.18);
-        width: auto;
-        max-width: 540px;
-        padding: 60px;
-        margin: 48px auto;
-        border-radius: 6px;
-    }
-
-    h1 {
-        font: 400 2em "Inter", sans-serif;
-    }
-
-    p {
-        font: 400 0.8em/1.5 "Inter", sans-serif;
-        color: #BFBFBF;
-        margin: 6px 0 24px 0;
-    }
-
-    button {
-        background-color: #0367A6;
-        color: #FFF;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    button:hover {
-        background-color: #01588D;
-    }
-
-</style>
-
 <body>
-    <main>
-        <h1>Pedido de alteração de senha</h1>
-        <p>Sua senha pode ser redefinida clicando no botão abaixo. Se você não solicitou uma nova senha, ignore este
-            e-mail.</p>
-        <button>Redefinir senha</button>
-    </main>
-</body>
+	<div class="container">
+		<div class="background-blue">
 
+			<div class="wrapper">
+				<div class="header">
+					<h2 class="title"> <img src="https://i.postimg.cc/GpfX6zsc/android-chrome-256x256.png" alt=""> MundoWeb</h2>	
+					<div class="description">Recuperação de Senha </div>	
+				</div>
+				<div class="content">
+					<h4>Olá @Model.Nome </h4>
+					<p>Recebemos sua solicitação de mudança de senha no <strong>Mundo Web</strong></p>
+					<p>Clique no botão abaixo para criar uma nova senha</p>
+					<a href="@Model.Url/alterar-senha?codigo=@Model.Codigo" class="button">Alterar senha</a>
+					<p>Lembrando que o link tem validade de @Model.ExpiracaoEmHoras horas desde o pedido de troca da senha.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
