@@ -19,5 +19,9 @@ public class ProdutoServicoMap : IEntityTypeConfiguration<ProdutoServico>
         builder.Property(c => c.Foto)
             .IsRequired(false)
             .HasMaxLength(1500);
+        
+        builder
+            .Property(c => c.Categoria)
+            .IsRequired();
     }
 }

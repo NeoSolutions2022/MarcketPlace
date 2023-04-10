@@ -54,8 +54,8 @@ public class FornecedoresController : MainController
         return OkResponse(fornecedor);
     }
 
-    [HttpGet("cnpj/{cpf}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por cpf.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [HttpGet("cpf/{cpf}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por cpf.", Tags = new[] { "Usuario - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

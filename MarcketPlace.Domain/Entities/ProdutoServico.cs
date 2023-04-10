@@ -12,6 +12,7 @@ public class ProdutoServico : Entity, IAggregateRoot, ISoftDelete
     public string Descricao { get; set; } = null!;
     public bool Desativado { get; set; }
     public int FornecedorId { get; set; }
+    public string Categoria { get; set; } = null!;
     public Fornecedor Fornecedor { get; set; } = new();
     
     public override bool Validar(out ValidationResult validationResult)

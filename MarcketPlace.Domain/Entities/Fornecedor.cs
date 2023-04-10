@@ -20,6 +20,7 @@ public class Fornecedor : Entity, IAggregateRoot, ISoftDelete
     public string Bairro { get; set; } = null!;
     public string Nome { get; set; } = null!;
     public int Numero { get; set; }
+    public string Categoria { get; set; } = null!;
     public string Responsavel { get; set; } = null!;
     public string Senha { get; set; } = null!;
     public string? Telefone { get; set; }
