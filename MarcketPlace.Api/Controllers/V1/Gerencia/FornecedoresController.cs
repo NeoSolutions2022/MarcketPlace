@@ -1,4 +1,5 @@
 ﻿using MarcketPlace.Application.Contracts;
+using MarcketPlace.Application.Dtos.V1.Fornecedor;
 using MarcketPlace.Application.Notification;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -15,6 +16,18 @@ public class FornecedoresController : MainController
         _fornecedorService = fornecedorService;
     }
 
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ObterPorId(int id)
+    {
+        var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
+        return OkResponse(fornecedor);
+    }
+    
     [HttpPatch("ativar/{id}")]
     [SwaggerOperation(Summary = "Desativar um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
