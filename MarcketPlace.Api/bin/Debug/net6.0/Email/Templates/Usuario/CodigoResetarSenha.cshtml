@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
 	<title></title>
 	<meta charset="utf-8">
@@ -14,6 +12,9 @@
 			}			
 			.wrapper{
 				height: 20rem !important;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 			.wrapper div{
 				display: flex;
@@ -31,6 +32,9 @@
 		}
 		h2 img{
 			height: 3rem;
+		}
+		body, td, th, table{
+			font-family: 'Times New Roman', Times, serif;
 		}
 
 		.title {
@@ -98,24 +102,175 @@
 		}
 	</style>
 </head>
-<body>
-	<div class="container">
-		<div class="background-blue">
-
-			<div class="wrapper">
-				<div class="header">
-					<h2 class="title"> <img src="https://i.postimg.cc/GpfX6zsc/android-chrome-256x256.png" alt=""> MundoWeb</h2>	
-					<div class="description">Recuperação de Senha </div>	
-				</div>
-				<div class="content">
-					<h4>Olá @Model.Nome </h4>
-					<p>Recebemos sua solicitação de mudança de senha no <strong>Mundo Web</strong></p>
-					<p>Clique no botão abaixo para criar uma nova senha</p>
-					<a href="@Model.Url/alterar-senha?codigo=@Model.Codigo" class="button">Alterar senha</a>
-					<p>Lembrando que o link tem validade de @Model.ExpiracaoEmHoras horas desde o pedido de troca da senha.</p>
-				</div>
-			</div>
-		</div>
-	</div>
+<body style="word-spacing:normal;">
+  <div style>
+    <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" bgcolor="#023163b7" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    <div style="background:#023163b7;background-color:#023163b7;margin:0px auto;max-width:600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#023163b7;background-color:#023163b7;width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:36px;padding-top:36px;text-align:center;">
+              <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+              <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="vertical-align:top;padding:0;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%">
+                          <tbody>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
+                                  <tbody>
+                                    <tr>
+                                      <td style="width:100%; display: flex; align-items: center; gap: 20px">
+                                        <img alt height="auto" src="https://i.postimg.cc/GpfX6zsc/android-chrome-256x256.png" style="border:0;display:block;outline:none;text-decoration:none;max-height: 120px; max-width: 60px;font-size:13px;" width="90">
+                                        <strong style="color: rgb(255, 255, 255) !important; font-size: 3rem; width: 100%; "> Mundo Web </strong>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+															<td align="center" style="font-size:0px;padding:10px 25px;padding-top:16px;padding-bottom:16px;word-break:break-word;">
+																<p style="border-top:solid 2px #ffffff;font-size:1px;margin:10px auto 0;width:400px;">
+                                </p>
+                                <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 2px #ffffff;font-size:1px;margin:0px auto;width:180px;" role="presentation" width="180px" ><tr><td style="height:0;line-height:0;"> &nbsp;
+</td></tr></table><![endif]-->	
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
+                                <div style="font-family:'Times New Roman','Helvetica', 'Arial', sans-serif;font-size:35px;line-height:1.375;text-align:center;color:#ffffff;"><strong>Recuperação de Senha</strong></div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table><![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="body-section-outlook" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    <div class="body-section" style="-webkit-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15); -moz-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15); box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15); margin: 0px auto; max-width: 600px;">
+      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+        <tbody>
+          <tr>
+            <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0;padding-top:0;text-align:center;">
+              <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" bgcolor="#FFFFFF" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="background:#FFFFFF;background-color:#FFFFFF;margin:0px auto;max-width:600px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#FFFFFF;background-color:#FFFFFF;width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="direction:ltr;font-size:0px;padding:24px;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:552px;" ><![endif]-->
+                        <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                            <tbody>
+                              <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                  <div style="font-family: 'Times New Roman', 'Helvetica', 'Arial', sans-serif;font-size:16px;line-height:1;text-align:left;color:#1a1818;">
+                                    <p>Olá, <strong>  @Model.Nome </strong>,</p>
+                                    <p> Nós recebemos sua solicitação de mudança de senha no <strong>Mundo Web</strong></p>
+                                    <p> Clique no botão abaixo para criar uma nova senha para sua conta. </p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td vertical-align="middle" style="font-size:0px;word-break:break-word;">
+                                  <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:middle;" width="100%">
+                                      <tbody>
+                                        <tr>
+                                          <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;padding-top:10px;padding-bottom:0px;word-break:break-word;">
+                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                              <tr>
+                                                <td align="center" bgcolor="#023163b7" role="presentation" style="border:none;border-radius:24px;cursor:auto;mso-padding-alt:10px 25px;background:#023163b7;" valign="middle">
+                                                  <a href="@Model.Url/alterar-senha?codigo=@Model.Codigo" style="display:inline-block;background:#023163b7;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:24px;" target="_blank"> TROCAR SENHA </a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                            <div style="font-family:'Cabin', 'Helvetica', 'Arial', sans-serif;font-size:12px;line-height:1;text-align:center;color:#1a1818;">Ou clique nesse link: <a href="@Model.Url/alterar-senha?codigo=@Model.Codigo"> Clique Aqui</a></div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                  <div style="font-family:'Times New Roman', 'Helvetica', 'Arial', sans-serif;font-size:16px;line-height:1;text-align:left;color:#1a1818;">
+                                    <p>Lembrando que o link tem validade de @Model.ExpiracaoEmHoras horas desde o pedido de troca da senha.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr><tr><td class="" width="600px" ><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" bgcolor="#E9ECEF" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+              <div style="background:#E9ECEF;background-color:#E9ECEF;margin:0px auto;max-width:600px;">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#E9ECEF;background-color:#E9ECEF;width:100%;">
+                  <tbody>
+                    <tr>
+                      <td style="direction:ltr;font-size:0px;padding:20px 20px 20px 20px;text-align:center;">
+                        <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:140px;" ><![endif]-->
+                        <div class="mj-column-per-25 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                            <tbody>
+                              <tr>
+                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                 </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td><td class="" style="vertical-align:top;width:280px;" ><![endif]-->
+                        <div class="mj-column-per-50 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                          <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                            <tbody>
+                              <tr>
+                                <td align="center" style="font-size:0px;padding:10px 25px;padding-top:0px;word-break:break-word;">
+                                  <div style="font-family:'Cabin', 'Helvetica', 'Arial', sans-serif;font-size:12px;line-height:1;text-align:center;color:#515151;">
+                                    <p> Equipe Mundo Web </p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--[if mso | IE]></td><td class="" style="vertical-align:top;width:140px;" ><![endif]-->
+                    
+                        <!--[if mso | IE]></td></tr></table><![endif]-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--[if mso | IE]></td></tr></table></td></tr></table><![endif]-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--[if mso | IE]></td></tr></table><![endif]-->
+  </div>
 </body>
 </html>
