@@ -23,6 +23,11 @@ public class AdministradorRepository : Repository<Administrador>, IAdministrador
         Context.Administradores.Update(administrador);
     }
 
+    public void Remover(Administrador administrador)
+    {
+        Context.Administradores.Remove(administrador);
+    }
+
     public async Task<Administrador?> ObterPorId(int id)
     {
         return await Context.Administradores.FirstOrDefaultAsync(c => c.Id == id);

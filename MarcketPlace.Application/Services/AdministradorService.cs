@@ -2,10 +2,13 @@
 using MarcketPlace.Application.Contracts;
 using MarcketPlace.Application.Dtos.V1.Administrador;
 using MarcketPlace.Application.Dtos.V1.Base;
+using MarcketPlace.Application.Email;
 using MarcketPlace.Application.Notification;
+using MarcketPlace.Core.Settings;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace MarcketPlace.Application.Services;
 
@@ -13,11 +16,15 @@ public class AdministradorService : BaseService, IAdministradorService
 {
     private readonly IAdministradorRepository _administradorRepository;
     private readonly IPasswordHasher<Administrador> _passwordHasher;
+    private readonly IEmailService _emailService;
+    private readonly AppSettings _appSettings;
 
-    public AdministradorService(IMapper mapper, INotificator notificator, IAdministradorRepository administradorRepository, IPasswordHasher<Administrador> passwordHasher) : base(mapper, notificator)
+    public AdministradorService(IMapper mapper, INotificator notificator, IAdministradorRepository administradorRepository, IPasswordHasher<Administrador> passwordHasher, IEmailService emailService, IOptions<AppSettings> appSettings) : base(mapper, notificator)
     {
         _administradorRepository = administradorRepository;
         _passwordHasher = passwordHasher;
+        _emailService = emailService;
+        _appSettings = appSettings.Value;
     }
 
     public async Task<PagedDto<AdministradorDto>> Buscar(BuscarAdministradorDto dto)
@@ -137,6 +144,54 @@ public class AdministradorService : BaseService, IAdministradorService
         }
         
         Notificator.Handle("Não foi possível reativar o administrador");
+    }
+
+    public async Task Remover(int id)
+    {
+        var fornecedor = await _administradorRepository.FistOrDefault(c => c.Id == id);
+        if (fornecedor == null)
+        {
+            Notificator.Handle("Não existe um fornecedor com o id informado");
+            return;
+        }
+
+        _administradorRepository.Remover(fornecedor);
+        if (await _administradorRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+
+        Notificator.Handle("Não foi possível remover o fornecedor");
+    }
+
+    public async Task AlterarSenha(int id)
+    {
+        var administrador = await _administradorRepository.FistOrDefault(f => f.Id == id);
+        if (administrador == null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var codigoExpiraEmHoras = 3;
+        administrador.CodigoResetarSenha = Guid.NewGuid();
+        administrador.CodigoResetarSenhaExpiraEm = DateTime.Now.AddHours(codigoExpiraEmHoras);
+        _administradorRepository.Alterar(administrador);
+        if (await _administradorRepository.UnitOfWork.Commit())
+        {
+            _emailService.Enviar(
+                administrador.Email,
+                "Seu link para alterar a senha",
+                "Usuario/CodigoResetarSenha",
+                new
+                {
+                    administrador.Nome,
+                    administrador.Email,
+                    Codigo = administrador.CodigoResetarSenha,
+                    Url = _appSettings.UrlComum,
+                    ExpiracaoEmHoras = codigoExpiraEmHoras
+                });
+        }
     }
 
     private async Task<bool> Validar(Administrador administrador)

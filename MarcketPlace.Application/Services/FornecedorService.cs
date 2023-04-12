@@ -110,7 +110,6 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         var fornecedor = await _fornecedorRepository.ObterPorId(id);
-        var foto = fornecedor?.Foto;
         if (fornecedor == null)
         {
             Notificator.HandleNotFoundResource();
@@ -362,7 +361,6 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         Notificator.Handle("Não foi possível remover o fornecedor");
-        return;
     }
 
     private async Task<bool> Validar(Fornecedor fornecedor)
@@ -398,11 +396,5 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         return !Notificator.HasNotification;
-    }
-
-    private async Task<bool> ManterFoto(IFormFile foto, Fornecedor fornecedor)
-    {
-        fornecedor.Foto = await _fileService.Upload(foto, EUploadPath.FotoFornecedor);
-        return true;
     }
 }

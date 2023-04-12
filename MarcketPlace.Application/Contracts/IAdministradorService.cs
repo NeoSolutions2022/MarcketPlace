@@ -12,4 +12,6 @@ public interface IAdministradorService
     Task<AdministradorDto?> ObterPorEmail(string email);
     Task Desaticar(int id);
     Task Reativar(int id);
+    Task Remover(int id);
+    Task AlterarSenha(int id);
 }
