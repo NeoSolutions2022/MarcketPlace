@@ -54,7 +54,7 @@ public class FornecedorService : BaseService, IFornecedorService
         }
 
         var fornecedor = await _fornecedorRepository.Buscar(new BuscarFornecedorDto
-            { Bairro = usuarioLogado?.Bairro, AnuncioPago = true });
+            { Cidade = usuarioLogado?.Cidade, AnuncioPago = true });
 
         if (fornecedor.Itens.Count == 0)
         {
