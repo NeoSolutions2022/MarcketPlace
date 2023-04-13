@@ -10,6 +10,8 @@ public class Administrador : EntityNotTracked, IAggregateRoot, ISoftDelete
     public string Email { get; set; } = null!;
     public string Senha { get; set; } = null!;
     public bool Desativado { get; set; }
+    public Guid? CodigoResetarSenha { get; set; }
+    public DateTime? CodigoResetarSenhaExpiraEm { get; set; }
 
     public override bool Validar(out ValidationResult validationResult)
     {

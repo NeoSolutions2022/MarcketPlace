@@ -26,5 +26,15 @@ public class AdministradorMap : IEntityTypeConfiguration<Administrador>
         builder
             .Property(a => a.Desativado)
             .HasDefaultValue(false);
+        
+        builder
+            .Property(c => c.CodigoResetarSenha)
+            .HasColumnType("CHAR(64)")
+            .IsRequired(false);
+        
+        builder
+            .Property(c => c.CodigoResetarSenhaExpiraEm)
+            .HasColumnType("DATETIME")
+            .IsRequired(false);
     }
 }

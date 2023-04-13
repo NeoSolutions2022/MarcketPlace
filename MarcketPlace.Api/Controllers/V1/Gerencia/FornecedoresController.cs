@@ -10,38 +10,26 @@ namespace MarcketPlace.Api.Controllers.V1.Gerencia;
 public class FornecedoresController : MainController
 {
     private readonly IFornecedorService _fornecedorService;
-    
+
     public FornecedoresController(INotificator notificator, IFornecedorService fornecedorService) : base(notificator)
     {
         _fornecedorService = fornecedorService;
     }
-    
-    [HttpGet("cnpj/{cpf}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por cpf.", Tags = new [] { "Gerencia - Fornecedor" })]
+
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Obter um Fornecedor por Id.", Tags = new[] { "Gerencia - Fornecedor" })]
     [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> ObterPorCpf(string cpf)
+    public async Task<IActionResult> ObterPorId(int id)
     {
-        var fornecedor = await _fornecedorService.ObterPorCpf(cpf);
+        var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
         return OkResponse(fornecedor);
     }
     
-    [HttpGet("cnpj/{cnpj}")]
-    [SwaggerOperation(Summary = "Obter um Fornecedor por cnpj.", Tags = new [] { "Gerencia - Fornecedor" })]
-    [ProducesResponseType(typeof(FornecedorDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> ObterPorCnpj(string cnpj)
-    {
-        var fornecedor = await _fornecedorService.ObterPorCnpj(cnpj);
-        return OkResponse(fornecedor);
-    }
-    
-    [HttpPatch("ativar/{id}")]
-    [SwaggerOperation(Summary = "Desativar um Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [HttpPatch("desativar/{id}")]
+    [SwaggerOperation(Summary = "Desativar um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -50,9 +38,9 @@ public class FornecedoresController : MainController
         await _fornecedorService.Desativar(id);
         return NoContentResponse();
     }
-    
+
     [HttpPatch("reativar/{id}")]
-    [SwaggerOperation(Summary = "Reativar um Fornecedor.", Tags = new [] { "Gerencia - Fornecedor" })]
+    [SwaggerOperation(Summary = "Reativar um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -62,6 +50,28 @@ public class FornecedoresController : MainController
         return NoContentResponse();
     }
     
+    [HttpPatch("ativar-anuncio/{id}")]
+    [SwaggerOperation(Summary = "Ativar anúncio para um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AtivarAnuncio(int id)
+    {
+        await _fornecedorService.AtivarAnuncio(id);
+        return NoContentResponse();
+    }
+    
+    [HttpPatch("desativar-anuncio/{id}")]
+    [SwaggerOperation(Summary = "Desativar anúncio para um Fornecedor.", Tags = new[] { "Gerencia - Fornecedor" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> DesativarAnuncio(int id)
+    {
+        await _fornecedorService.DesativarAnuncio(id);
+        return NoContentResponse();
+    }
+
     [HttpDelete]
     [SwaggerOperation(Summary = "Remover um Fornecedor.", Tags = new[] { "Gerencia - Cliente" })]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

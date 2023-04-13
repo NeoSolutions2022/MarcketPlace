@@ -47,6 +47,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
 
         produtoServico.FornecedorId = (int)_httpContextAccessor.ObterUsuarioId();
         produtoServico.Foto = links.ToString();
+        produtoServico.CriadoEm = DateTime.Now;
         _produtoServicoRepository.Adicionar(produtoServico);
         
         if (!await Validar(produtoServico))
@@ -89,8 +90,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
                 }
             }
         }
-        
-        
+
         produtoServico.Foto = links.ToString(); // TODO Identificar quais fotos foram alteradas
         Mapper.Map(produtoServico, dto);
         if (!await Validar(produtoServico))
@@ -98,6 +98,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             return null;
         }
 
+        produtoServico.AtualizadoEm = DateTime.Now;
         _produtoServicoRepository.Alterar(produtoServico);
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {
@@ -118,6 +119,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
 
         produtoServico.Desativado = true;
+        produtoServico.AtualizadoEm = DateTime.Now;
         _produtoServicoRepository.Alterar(produtoServico);
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {
@@ -137,6 +139,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
 
         produtoServico.Desativado = false;
+        produtoServico.AtualizadoEm = DateTime.Now;
         _produtoServicoRepository.Alterar(produtoServico);
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {

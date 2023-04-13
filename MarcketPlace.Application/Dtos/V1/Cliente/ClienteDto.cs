@@ -8,7 +8,6 @@ public class ClienteDto
     public string Email { get; set; } = null!;
     public string Cpf { get; set; } = null!;
     public string? Telefone { get; set; }
-    public string Senha { get; set; } = null!;
     public bool? Inadiplente { get; set; }
     public DateTime DataPagamento { get; set; }
     public bool Desativado { get; set; }
@@ -16,6 +15,7 @@ public class ClienteDto
     public string Cidade { get; set; } = null!;
     public string Uf { get; set; } = null!;
     public string Endereco { get; set; } = null!;
+    public string Bairro { get; set; } = null!;
     public int Numero { get; set; }
     public string? Complemento { get; set; }
     public string? Foto { get; set; }

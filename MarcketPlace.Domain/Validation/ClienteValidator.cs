@@ -3,10 +3,18 @@ using MarcketPlace.Domain.Entities;
 
 namespace MarcketPlace.Domain.Validation;
 
-public class ClienteValidator: AbstractValidator<Cliente>
+public class ClienteValidator : AbstractValidator<Cliente>
 {
     public ClienteValidator()
     {
+        RuleFor(u => u.Bairro)
+            .MinimumLength(3)
+            .WithMessage("Bairro deve ter no mínimo 3 caracteres!")
+            .MaximumLength(30)
+            .WithMessage("Bairro deve ter no máximo 30 caracteres!")
+            .NotEmpty()
+            .WithMessage("Bairro não pode ser vazio!");
+        
         RuleFor(u => u.Cep)
             .MinimumLength(8)
             .WithMessage("Cep deve ter no mínimo 8 caracteres!")
@@ -14,7 +22,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .WithMessage("Cep deve ter no máximo 9 caracteres!")
             .NotEmpty()
             .WithMessage("Cep não pode ser vazio!");
-        
+
         RuleFor(u => u.Cidade)
             .MinimumLength(2)
             .WithMessage("Cidade deve ter no mínimo 2 caracteres!")
@@ -22,18 +30,18 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .WithMessage("Cidade deve ter no máximo 60 caracteres!")
             .NotEmpty()
             .WithMessage("Cidade não pode ser vazio!");
-        
+
         RuleFor(u => u.Complemento)
             .MinimumLength(2)
             .WithMessage("Complemento deve ter no mínimo 2 caracteres!")
             .MaximumLength(60)
             .WithMessage("Complemento deve ter no máximo 60 caracteres!");
-        
+
         RuleFor(u => u.Cpf)
             .IsValidCPF()
             .NotEmpty()
             .WithMessage("Cpf não pode ser vazio!");
-        
+
         RuleFor(u => u.DataPagamento)
             .NotEmpty()
             .WithMessage("DataPagamento não pode ser vazio!")
@@ -41,7 +49,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
 
         RuleFor(u => u.Desativado)
             .NotNull();
-        
+
         RuleFor(u => u.Email)
             .MinimumLength(11)
             .WithMessage("Email deve ter no mínimo 11 caracteres!")
@@ -50,7 +58,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .NotEmpty()
             .WithMessage("Email não pode ser vazio!")
             .EmailAddress();
-        
+
         RuleFor(u => u.Endereco)
             .MinimumLength(2)
             .WithMessage("Endereco deve ter no mínimo 2 caracteres!")
@@ -58,7 +66,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .WithMessage("Endereco deve ter no máximo 60 caracteres!")
             .NotEmpty()
             .WithMessage("Endereco não pode ser vazio!");
-        
+
         RuleFor(u => u.Nome)
             .MinimumLength(2)
             .WithMessage("Nome deve ter no mínimo 2 caracteres!")
@@ -72,7 +80,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .WithMessage("NomeSocial deve ter no mínimo 2 caracteres!")
             .MaximumLength(60)
             .WithMessage("NomeSocial deve ter no máximo 60 caracteres!");
-        
+
         RuleFor(u => u.Numero)
             .NotEmpty()
             .WithMessage("Numero não pode ser vazio!")
@@ -86,7 +94,7 @@ public class ClienteValidator: AbstractValidator<Cliente>
             .WithMessage("Senha deve ter no máximo 15 caracteres!")
             .NotEmpty()
             .WithMessage("Senha não pode ser vazio!");
-        
+
         RuleFor(u => u.Telefone)
             .MinimumLength(9)
             .WithMessage("Telefone deve ter no mínimo 9 caracteres!")

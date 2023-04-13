@@ -22,6 +22,24 @@ public static class HttpContextAccessorExtensions
         return string.IsNullOrWhiteSpace(tipo) ? null : Enum.Parse<ETipoUsuario>(tipo);
     }
 
+    public static ETipoUsuario? ObterTipoAdministrador(this IHttpContextAccessor? contextAccessor)
+    {
+        var tipo = contextAccessor?.HttpContext?.User?.ObterTipoAdministrador() ?? string.Empty;
+        return string.IsNullOrWhiteSpace(tipo) ? null : Enum.Parse<ETipoUsuario>(tipo);
+    }
+
+    public static ETipoUsuario? ObterTipoFornecedor(this IHttpContextAccessor? contextAccessor)
+    {
+        var tipo = contextAccessor?.HttpContext?.User?.ObterTipoFornecedor() ?? string.Empty;
+        return string.IsNullOrWhiteSpace(tipo) ? null : Enum.Parse<ETipoUsuario>(tipo);
+    }
+
+    public static ETipoUsuario? ObterTipoCliente(this IHttpContextAccessor? contextAccessor)
+    {
+        var tipo = contextAccessor?.HttpContext?.User?.ObterTipoCliente() ?? string.Empty;
+        return string.IsNullOrWhiteSpace(tipo) ? null : Enum.Parse<ETipoUsuario>(tipo);
+    }
+
     public static bool EhAdministrador(this IHttpContextAccessor? contextAccessor)
     {
         return ObterTipoUsuario(contextAccessor) is ETipoUsuario.Administrador;

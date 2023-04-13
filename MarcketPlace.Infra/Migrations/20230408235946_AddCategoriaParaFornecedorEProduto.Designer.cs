@@ -4,6 +4,7 @@ using MarcketPlace.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcketPlace.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230408235946_AddCategoriaParaFornecedorEProduto")]
+    partial class AddCategoriaParaFornecedorEProduto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,12 +31,6 @@ namespace MarcketPlace.Infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CodigoResetarSenha")
-                        .HasColumnType("CHAR(64)");
-
-                    b.Property<DateTime?>("CodigoResetarSenhaExpiraEm")
-                        .HasColumnType("DATETIME");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()
@@ -182,11 +178,6 @@ namespace MarcketPlace.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("AnuncioPago")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<DateTime>("AtualizadoEm")
                         .HasColumnType("datetime2");
 
@@ -243,12 +234,6 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<bool>("CriadoPorAdmin")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DataExpiracaoAnuncio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DataPagamentoAnuncio")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()
@@ -312,11 +297,6 @@ namespace MarcketPlace.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("AnuncioPago")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<DateTime>("AtualizadoEm")
                         .HasColumnType("datetime2");
 
@@ -338,12 +318,6 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.Property<bool>("CriadoPorAdmin")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("DataExpiracaoAnuncio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DataPagamentoAnuncio")
-                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Desativado")
                         .ValueGeneratedOnAdd()

@@ -9,6 +9,15 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
     public void Configure(EntityTypeBuilder<Fornecedor> builder)
     {
         builder
+            .Property(c => c.Bairro)
+            .IsRequired()
+            .HasMaxLength(30);
+
+        builder
+            .Property(c => c.Categoria)
+            .IsRequired();
+        
+        builder
             .Property(c => c.Cep)
             .IsRequired()
             .HasMaxLength(9);
@@ -17,6 +26,11 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Cidade)
             .IsRequired()
             .HasMaxLength(60);
+        
+        builder
+            .Property(c => c.Descricao)
+            .IsRequired(false)
+            .HasMaxLength(2000);
         
         builder
             .Property(c => c.Cnpj)
@@ -76,7 +90,10 @@ public class FornecedorMap : IEntityTypeConfiguration<Fornecedor>
             .Property(c => c.Uf)
             .IsRequired()
             .HasMaxLength(2);
-        
+
+        builder.Property(c => c.AnuncioPago)
+            .HasDefaultValue(false);
+
         builder
             .Property(c => c.CodigoResetarSenha)
             .HasColumnType("CHAR(64)")

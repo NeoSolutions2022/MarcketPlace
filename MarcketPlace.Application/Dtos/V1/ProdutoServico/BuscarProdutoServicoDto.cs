@@ -6,7 +6,8 @@ namespace MarcketPlace.Application.Dtos.V1.ProdutoServico;
 public class BuscarProdutoServicoDto : BuscaPaginadaDto<Domain.Entities.ProdutoServico>
 {
     public string? Titulo { get; set; } = null!;
-    public string? Descricao { get; set; } = null!;
+    public string? Descricao { get; set; } = null!; 
+    public string? Categoria { get; set; } = null!;
 
     public override void AplicarFiltro(ref IQueryable<Domain.Entities.ProdutoServico> query)
     {
@@ -22,6 +23,11 @@ public class BuscarProdutoServicoDto : BuscaPaginadaDto<Domain.Entities.ProdutoS
             query = query.Where(c => c.Descricao.Contains(Descricao));
         }
 
+        if (!string.IsNullOrWhiteSpace(Categoria))
+        {
+            query = query.Where(c => c.Categoria.Contains(Categoria));
+        }
+
         query = query.Where(expression);
     }
 
@@ -33,6 +39,7 @@ public class BuscarProdutoServicoDto : BuscaPaginadaDto<Domain.Entities.ProdutoS
             {
                 "titulo" => query.OrderBy(c => c.Titulo),
                 "descricao" => query.OrderBy(c => c.Descricao),
+                "categoria" => query.OrderBy(c => c.Categoria),
                 "id" or _ => query.OrderBy(c => c.Id)
             };
             return;
@@ -42,6 +49,7 @@ public class BuscarProdutoServicoDto : BuscaPaginadaDto<Domain.Entities.ProdutoS
         {
             "titulo" => query.OrderByDescending(c => c.Titulo),
             "descricao" => query.OrderByDescending(c => c.Descricao),
+            "categoria" => query.OrderByDescending(c => c.Categoria),
             "id" or _ => query.OrderByDescending(c => c.Id)
         };
     }
