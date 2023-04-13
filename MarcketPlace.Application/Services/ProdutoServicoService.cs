@@ -6,8 +6,11 @@ using MarcketPlace.Application.Dtos.V1.Base;
 using MarcketPlace.Application.Dtos.V1.ProdutoServico;
 using MarcketPlace.Application.Notification;
 using MarcketPlace.Core.Enums;
+using MarcketPlace.Core.Extensions;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Azure;
 
 namespace MarcketPlace.Application.Services;
@@ -16,21 +19,19 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
 {
     private readonly IProdutoServicoRepository _produtoServicoRepository;
     private readonly IFileService _fileService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public ProdutoServicoService(IMapper mapper, INotificator notificator,
-        IProdutoServicoRepository produtoServicoRepository, IFileService fileService) : base(mapper, notificator)
+        IProdutoServicoRepository produtoServicoRepository, IFileService fileService, IHttpContextAccessor httpContextAccessor) : base(mapper, notificator)
     {
         _produtoServicoRepository = produtoServicoRepository;
         _fileService = fileService;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<ProdutoServicoDto?> Adicionar(CadastrarProdutoServicoDto dto)
     {
         var produtoServico = Mapper.Map<ProdutoServico>(dto);
-        if (!await Validar(produtoServico))
-        {
-            return null;
-        }
 
         StringBuilder links = new StringBuilder();
         if (dto.Fotos.Count != 0)
@@ -39,13 +40,20 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             {
                 if (foto is { Length : > 0 })
                 {
-                    links.Append("*" + await _fileService.Upload(foto, EUploadPath.FotoProdutoServico));
+                    links.Append("&" + await _fileService.Upload(foto, EUploadPath.FotoProdutoServico));
                 }
             }
         }
 
+        produtoServico.FornecedorId = (int)_httpContextAccessor.ObterUsuarioId();
         produtoServico.Foto = links.ToString();
         _produtoServicoRepository.Adicionar(produtoServico);
+        
+        if (!await Validar(produtoServico))
+        {
+            return null;
+        }
+        
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {
             return Mapper.Map<ProdutoServicoDto>(produtoServico);
