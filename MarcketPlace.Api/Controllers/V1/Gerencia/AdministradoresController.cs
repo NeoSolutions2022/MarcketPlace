@@ -86,7 +86,7 @@ public class AdministradoresController : MainController
         return OkResponse(administrador);
     }
 
-    [HttpPatch]
+    [HttpPatch("ativar-administrador")]
     [SwaggerOperation(Summary = "Desativar um Administrador.", Tags = new[] { "Gerencia - Administrador" })]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -98,7 +98,7 @@ public class AdministradoresController : MainController
         return NoContentResponse();
     }
 
-    [HttpPatch]
+    [HttpPatch("reativar-administrador")]
     [SwaggerOperation(Summary = "Reativar um Administrador.", Tags = new[] { "Gerencia - Administrador" })]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
