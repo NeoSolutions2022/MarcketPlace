@@ -25,10 +25,6 @@ public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepositor
 
     public async Task<Fornecedor?> ObterPorId(int id)
     {
-        return await Context.Fornecedores.FirstOrDefaultAsync(c => c.Id == id);
-    }
-    public async Task<Fornecedor?> ObterProdutosServicos(int id)
-    {
         return await Context.Fornecedores
             .Include(c => c.ProdutoServicos)
             .FirstOrDefaultAsync(c => c.Id == id);
@@ -56,7 +52,9 @@ public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepositor
 
     public async Task<IResultadoPaginado<Fornecedor>> Buscar(IBuscaPaginada<Fornecedor> filtro)
     {
-        var query = Context.Fornecedores.AsQueryable();
+        var query = Context.Fornecedores
+            .Include(c => c.ProdutoServicos)
+            .AsQueryable();
         return await base.Buscar(query, filtro);
     }
 }

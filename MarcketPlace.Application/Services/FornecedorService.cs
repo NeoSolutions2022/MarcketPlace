@@ -146,18 +146,6 @@ public class FornecedorService : BaseService, IFornecedorService
         return null;
     }
 
-    public async Task<FornecedorDto?> ObterProdutoServicos(int id)
-    {
-        var fornecedor = await _fornecedorRepository.ObterProdutosServicos(id);
-        if (fornecedor != null)
-        {
-            return Mapper.Map<FornecedorDto>(fornecedor);
-        }
-
-        Notificator.HandleNotFoundResource();
-        return null;
-    }
-
     public async Task<FornecedorDto?> ObterPorEmail(string email)
     {
         var fornecedor = await _fornecedorRepository.ObterPorEmail(email);

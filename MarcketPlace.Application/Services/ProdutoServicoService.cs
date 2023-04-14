@@ -45,12 +45,12 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         produtoServico.FornecedorId = Convert.ToInt32(_httpContextAccessor.HttpContext?.User.ObterUsuarioId());
         produtoServico.Foto = links.ToString();
         produtoServico.CriadoEm = DateTime.Now;
-        _produtoServicoRepository.Adicionar(produtoServico);
-        
         if (!await Validar(produtoServico))
         {
             return null;
         }
+        
+        _produtoServicoRepository.Adicionar(produtoServico);
         
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {

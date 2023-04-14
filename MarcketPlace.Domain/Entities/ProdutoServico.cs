@@ -14,7 +14,7 @@ public class ProdutoServico : Entity, IAggregateRoot, ISoftDelete, IAnunciavel
     public bool Desativado { get; set; }
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
-    public Fornecedor Fornecedor { get; set; } = new();
+    public Fornecedor Fornecedor { get; set; } = null!;
     
     public bool AnuncioPago { get; set; }
     public DateTime? DataPagamentoAnuncio { get; set; }

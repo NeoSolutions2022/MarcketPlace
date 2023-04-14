@@ -49,7 +49,7 @@ public class FornecedoresController : MainController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ObterPorId(int id)
     {
-        var fornecedor = await _fornecedorService.ObterProdutoServicos(id);
+        var fornecedor = await _fornecedorService.ObterPorId(id);
         return OkResponse(fornecedor);
     }
 

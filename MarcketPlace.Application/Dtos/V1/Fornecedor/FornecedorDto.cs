@@ -22,5 +22,5 @@ public class FornecedorDto
     public string? Telefone { get; set; }
     public string Uf { get; set; } = null!;
     public string? Foto { get; set; }
-    public List<ProdutoServicoDto>? ProdutoServicos { get; set; }
+    public List<ProdutoServicoDto> ProdutoServicos { get; set; } = new();
 }

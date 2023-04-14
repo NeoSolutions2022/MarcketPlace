@@ -25,11 +25,15 @@ public class ProdutoServicoRepository : Repository<ProdutoServico>, IProdutoServ
 
     public async Task<ProdutoServico?> ObterPorId(int id)
     {
-        return await Context.ProdutoServicos.FirstOrDefaultAsync(c => c.Id == id);
+        return await Context.ProdutoServicos
+            .Include(c => c.Fornecedor)
+            .FirstOrDefaultAsync(c => c.Id == id);
     }
     public async Task<IResultadoPaginado<ProdutoServico>> Buscar(IBuscaPaginada<ProdutoServico> filtro)
     {
-        var query = Context.ProdutoServicos.AsQueryable();
+        var query = Context.ProdutoServicos
+            .Include(c => c.Fornecedor)
+            .AsQueryable();
         return await base.Buscar(query, filtro);
     }
 }

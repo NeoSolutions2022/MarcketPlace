@@ -58,7 +58,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Administradores");
+                    b.ToTable("Administradores", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.Cliente", b =>
@@ -171,7 +171,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.Fornecedor", b =>
@@ -301,7 +301,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fornecedores");
+                    b.ToTable("Fornecedores", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
@@ -371,7 +371,7 @@ namespace MarcketPlace.Infra.Migrations
 
                     b.HasIndex("FornecedorId");
 
-                    b.ToTable("ProdutoServicos");
+                    b.ToTable("ProdutoServicos", (string)null);
                 });
 
             modelBuilder.Entity("MarcketPlace.Domain.Entities.ProdutoServico", b =>
