@@ -1,4 +1,3 @@
-using System.Runtime.Serialization.Formatters;
 using System.Text;
 using AutoMapper;
 using MarcketPlace.Application.Contracts;
@@ -10,8 +9,6 @@ using MarcketPlace.Core.Extensions;
 using MarcketPlace.Domain.Contracts.Repositories;
 using MarcketPlace.Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.Extensions.Azure;
 
 namespace MarcketPlace.Application.Services;
 
@@ -45,7 +42,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             }
         }
 
-        produtoServico.FornecedorId = (int)_httpContextAccessor.ObterUsuarioId();
+        produtoServico.FornecedorId = Convert.ToInt32(_httpContextAccessor.HttpContext?.User.ObterUsuarioId());
         produtoServico.Foto = links.ToString();
         produtoServico.CriadoEm = DateTime.Now;
         _produtoServicoRepository.Adicionar(produtoServico);
@@ -174,6 +171,11 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             Notificator.Handle(validationResult.Errors);
         }
 
+        if (produtoServico.FornecedorId != Convert.ToInt32(_httpContextAccessor.HttpContext?.User.ObterUsuarioId()))
+        {
+            Notificator.Handle("Você não tem permissão para executar essa ação!");
+        }
+        
         var administradorExistente =
             await _produtoServicoRepository.FistOrDefault(
                 c => c.Titulo == produtoServico.Titulo && c.Id != produtoServico.Id);

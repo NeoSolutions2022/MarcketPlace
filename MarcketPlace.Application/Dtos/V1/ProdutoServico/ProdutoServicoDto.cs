@@ -6,5 +6,6 @@ public class ProdutoServicoDto
     public string Titulo { get; set; } = null!;
     public string Descricao { get; set; } = null!;
     public bool Desativado { get; set; }
+    public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
 }
