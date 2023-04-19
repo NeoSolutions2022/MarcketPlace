@@ -9,4 +9,5 @@ public interface IProdutoServicoRepository : IRepository<ProdutoServico>
     void Alterar(ProdutoServico produtoServico);
     Task<ProdutoServico?> ObterPorId(int id);
     Task<IResultadoPaginado<ProdutoServico>> Buscar(IBuscaPaginada<ProdutoServico> filtro);
+    void Remover(ProdutoServico produtoServico);
 }

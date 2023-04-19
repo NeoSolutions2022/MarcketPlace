@@ -68,7 +68,7 @@ public class ProdutosServicoController : MainController
         return OkResponse(produtoServico);
     }
 
-    [HttpDelete("{id}")]
+    [HttpPatch("desativar/{id}")]
     [SwaggerOperation(Summary = "Deletar Produto/Serviço - Fornecedor.",
         Tags = new[] { "Fornecedor - Produto-Serviço" })]
     [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
@@ -81,7 +81,7 @@ public class ProdutosServicoController : MainController
         return NoContentResponse();
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch("reativar/{id}")]
     [SwaggerOperation(Summary = "Reativar Produto/Serviço - Fornecedor.",
         Tags = new[] { "Fornecedor - Produto-Serviço" })]
     [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
@@ -91,6 +91,32 @@ public class ProdutosServicoController : MainController
     public async Task<IActionResult> Reativar(int id)
     {
         await _produtoServicoService.Reativar(id);
+        return NoContentResponse();
+    }
+    
+    [HttpPatch("alterar-foto")]
+    [SwaggerOperation(Summary = "Alterar a foto de um produto ou serviço - Fornecedor.",
+        Tags = new[] { "Fornecedor - Produto-Serviço" })]
+    [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> AlterarFoto([FromForm] AlterarFotoProdutoServicoDto dto)
+    {
+        await _produtoServicoService.AlterarFoto(dto);
+        return NoContentResponse();
+    }
+    
+    [HttpPatch("remover-foto")]
+    [SwaggerOperation(Summary = "Remover a foto de um produto ou serviço - Fornecedor.",
+        Tags = new[] { "Fornecedor - Produto-Serviço" })]
+    [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> RemoverFoto([FromForm] RemoverFotosProdutoServicoDto dto)
+    {
+        await _produtoServicoService.RemoverFoto(dto);
         return NoContentResponse();
     }
 }

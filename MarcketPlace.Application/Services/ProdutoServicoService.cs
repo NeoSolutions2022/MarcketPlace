@@ -30,6 +30,12 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
     {
         var produtoServico = Mapper.Map<ProdutoServico>(dto);
 
+        if (dto.Fotos.Count > 5)
+        {
+            Notificator.Handle("O número máximo de fotos permitidas é 5");
+            return null;
+        }
+        
         StringBuilder links = new StringBuilder();
         if (dto.Fotos.Count != 0)
         {
@@ -75,20 +81,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             Notificator.HandleNotFoundResource();
             return null;
         }
-
-        StringBuilder links = new StringBuilder();
-        if (dto.Fotos.Count != 0)
-        {
-            foreach (var foto in dto.Fotos)
-            {
-                if (foto is { Length : > 0 })
-                {
-                    links.Append("*" + await _fileService.Upload(foto, EUploadPath.FotoProdutoServico));
-                }
-            }
-        }
-
-        produtoServico.Foto = links.ToString(); // TODO Identificar quais fotos foram alteradas
+        
         Mapper.Map(produtoServico, dto);
         if (!await Validar(produtoServico))
         {
@@ -104,6 +97,130 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
 
         Notificator.Handle("Não foi possível alterar o produto ou serviço!");
         return null;
+    }
+    
+    public async Task AlterarFoto(AlterarFotoProdutoServicoDto dto)
+    {
+        if (dto.HaAlterar.Count != 5)
+        {
+            Notificator.Handle("Deve ser informado os 5 valores booleanos");
+            return;
+        }
+        
+        if (dto.Fotos.Count > 5)
+        {
+            Notificator.Handle("O número máximo de fotos permitidas é 5");
+            return;
+        }
+
+        StringBuilder links = new StringBuilder();
+        if (dto.Fotos.Count != 0)
+        {
+            foreach (var foto in dto.Fotos)
+            {
+                if (foto is { Length : > 0 })
+                {
+                    links.Append("&" + await _fileService.Upload(foto, EUploadPath.FotoProdutoServico));
+                }
+            }
+        }
+
+        var arrayAux = links.ToString().Substring(1).Split("&");
+        string[] fotosHaAdicionar = new string[5];
+        for (int i = 0; i < arrayAux.Length; i++)
+        {
+            if (dto.HaAlterar[i])
+            {
+                fotosHaAdicionar[i] = arrayAux[i];
+            }
+        }
+        
+        var produtoServico = await _produtoServicoRepository.ObterPorId(dto.Id);
+        if (produtoServico is null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        var arrayAuxProdutoServico = produtoServico.Foto.Substring(1).Split("&");
+        string[] fotosProdutoServico = new string[5];
+        for (int i = 0; i < arrayAuxProdutoServico.Length; i++)
+        {
+            fotosProdutoServico[i] = arrayAuxProdutoServico[i];
+        }
+
+        for (int i = 0; i < dto.HaAlterar.Count; i++)
+        {
+            if (dto.HaAlterar[i])
+            {
+                fotosProdutoServico[i] = fotosHaAdicionar[i];
+            }
+        }
+
+        StringBuilder fotosString = new StringBuilder();
+        foreach (var foto in fotosProdutoServico)
+        {
+            if (foto != null)
+            {
+                fotosString.Append("&" + foto);
+            }
+        }
+
+        produtoServico.Foto = fotosString.ToString();
+        _produtoServicoRepository.Alterar(produtoServico);
+        if (await _produtoServicoRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível alterar as fotos");
+    }
+
+    public async Task RemoverFoto(RemoverFotosProdutoServicoDto dto)
+    {
+        if (dto.HaRemover.Count != 5)
+        {
+            Notificator.Handle("Deve ser informado os 5 valores booleanos");
+            return;
+        }
+        
+        var produtoServico = await _produtoServicoRepository.ObterPorId(dto.Id);
+        if (produtoServico is null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        string[] fotosProdutoServico = new string[5];
+        var fotosParaProdutoServico = produtoServico.Foto.Substring(1).Split("&");
+        for (int i = 0; i < fotosParaProdutoServico.Length; i++)
+        {
+            fotosProdutoServico[i] = fotosParaProdutoServico[i];
+        }
+
+        for (int i = 0; i < dto.HaRemover.Count; i++)
+        {
+            if (dto.HaRemover[i])
+            {
+                fotosProdutoServico[i] = "";
+            }
+        }
+
+        if (fotosProdutoServico.Length <= 0)
+        {
+            Notificator.Handle("O produto ou serviço deve conter ao menos uma foto!");
+            return;
+        }
+        
+        produtoServico.Foto = fotosProdutoServico.ToString()!;
+        _produtoServicoRepository.Alterar(produtoServico);
+
+        if (await _produtoServicoRepository.UnitOfWork.Commit())
+        {
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível alterar as fotos");
     }
 
     public async Task Desativar(int id)
@@ -144,6 +261,24 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
 
         Notificator.Handle("Não foi possível reativar o produto ou serviço");
+    }
+
+    public async Task Remover(int id)
+    {
+        var produtoServico = await _produtoServicoRepository.ObterPorId(id);
+        if (produtoServico is null)
+        {
+            Notificator.HandleNotFoundResource();
+            return;
+        }
+
+        if (await _produtoServicoRepository.UnitOfWork.Commit())
+        {
+            _produtoServicoRepository.Remover(produtoServico);
+            return;
+        }
+        
+        Notificator.Handle("Não foi possível remover o produto ou serviço");
     }
 
     public async Task<PagedDto<ProdutoServicoDto>> Buscar(BuscarProdutoServicoDto dto)

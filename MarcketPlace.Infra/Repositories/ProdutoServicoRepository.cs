@@ -36,4 +36,9 @@ public class ProdutoServicoRepository : Repository<ProdutoServico>, IProdutoServ
             .AsQueryable();
         return await base.Buscar(query, filtro);
     }
+
+    public void Remover(ProdutoServico produtoServico)
+    {
+        Context.ProdutoServicos.Remove(produtoServico);
+    }
 }

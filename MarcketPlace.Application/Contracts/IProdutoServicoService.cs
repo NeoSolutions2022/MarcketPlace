@@ -12,5 +12,8 @@ public interface IProdutoServicoService
     Task<ProdutoServicoDto?> ObterPorId(int id);
     Task Desativar(int id);
     Task Reativar(int id);
+    Task Remover(int id);
     Task<PagedDto<ProdutoServicoDto>> Buscar(BuscarProdutoServicoDto dto);
+    Task AlterarFoto(AlterarFotoProdutoServicoDto dto);
+    Task RemoverFoto(RemoverFotosProdutoServicoDto dto);
 }
