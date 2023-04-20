@@ -36,6 +36,12 @@ public class ProdutoServicoMap : IEntityTypeConfiguration<ProdutoServico>
             .IsRequired(false)
             .HasMaxLength(1500);
 
+        builder.Property(c => c.Preco)
+            .IsRequired();
+
+        builder.Property(c => c.PrecoDesconto)
+            .IsRequired();
+        
         builder.Property(c => c.AnuncioPago)
             .HasDefaultValue(false);
 

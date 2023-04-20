@@ -378,6 +378,12 @@ namespace MarcketPlace.Infra.Migrations
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)");
 
+                    b.Property<double>("Preco")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PrecoDesconto")
+                        .HasColumnType("float");
+
                     b.Property<string>("Titulo")
                         .IsRequired()
                         .HasMaxLength(180)

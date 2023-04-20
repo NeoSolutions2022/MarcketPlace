@@ -67,7 +67,7 @@ public class AdministradorService : BaseService, IAdministradorService
             return null;
         }
 
-        Mapper.Map(administrador, dto);
+        Mapper.Map(dto, administrador);
         if (!await Validar(administrador))
         {
             return null;

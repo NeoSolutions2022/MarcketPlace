@@ -12,6 +12,8 @@ public class ProdutoServicoDto
     public string? Foto5 { get; set; }
     public string Titulo { get; set; } = null!;
     public string Descricao { get; set; } = null!;
+    public double Preco { get; set; }
+    public double PrecoDesconto { get; set; }
     public bool Desativado { get; set; }
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;

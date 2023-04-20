@@ -88,7 +88,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             return null;
         }
 
-        Mapper.Map(produtoServico, dto);
+        Mapper.Map(dto, produtoServico);
         if (!await Validar(produtoServico))
         {
             return null;
