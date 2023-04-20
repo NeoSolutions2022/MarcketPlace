@@ -3,5 +3,5 @@
 public class RemoverFotosProdutoServicoDto
 {
     public int Id { get; set; }
-    public List<Boolean> HaRemover { get; set; } = null!;
+    public int IndexFoto { get; set; }
 }

@@ -20,9 +20,25 @@ public class ProdutoServicoMap : IEntityTypeConfiguration<ProdutoServico>
             .IsRequired(false)
             .HasMaxLength(1500);
 
+        builder.Property(c => c.Foto2)
+            .IsRequired(false)
+            .HasMaxLength(1500);
+
+        builder.Property(c => c.Foto3)
+            .IsRequired(false)
+            .HasMaxLength(1500);
+
+        builder.Property(c => c.Foto4)
+            .IsRequired(false)
+            .HasMaxLength(1500);
+
+        builder.Property(c => c.Foto5)
+            .IsRequired(false)
+            .HasMaxLength(1500);
+
         builder.Property(c => c.AnuncioPago)
             .HasDefaultValue(false);
-        
+
         builder
             .Property(c => c.Categoria)
             .IsRequired();

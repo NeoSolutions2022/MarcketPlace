@@ -69,7 +69,7 @@ public class ProdutosServicoController : MainController
     }
 
     [HttpPatch("desativar/{id}")]
-    [SwaggerOperation(Summary = "Deletar Produto/Serviço - Fornecedor.",
+    [SwaggerOperation(Summary = "Desativar Produto/Serviço - Fornecedor.",
         Tags = new[] { "Fornecedor - Produto-Serviço" })]
     [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -93,7 +93,7 @@ public class ProdutosServicoController : MainController
         await _produtoServicoService.Reativar(id);
         return NoContentResponse();
     }
-    
+
     [HttpPatch("alterar-foto")]
     [SwaggerOperation(Summary = "Alterar a foto de um produto ou serviço - Fornecedor.",
         Tags = new[] { "Fornecedor - Produto-Serviço" })]
@@ -106,7 +106,7 @@ public class ProdutosServicoController : MainController
         await _produtoServicoService.AlterarFoto(dto);
         return NoContentResponse();
     }
-    
+
     [HttpPatch("remover-foto")]
     [SwaggerOperation(Summary = "Remover a foto de um produto ou serviço - Fornecedor.",
         Tags = new[] { "Fornecedor - Produto-Serviço" })]
@@ -117,6 +117,17 @@ public class ProdutosServicoController : MainController
     public async Task<IActionResult> RemoverFoto([FromForm] RemoverFotosProdutoServicoDto dto)
     {
         await _produtoServicoService.RemoverFoto(dto);
+        return NoContentResponse();
+    }
+
+    [HttpDelete]
+    [SwaggerOperation(Summary = "Remover um produto ou fornecedor.", Tags = new[] { "Fornecedor - Produto-Serviço" })]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Remover(int id)
+    {
+        await _produtoServicoService.Remover(id);
         return NoContentResponse();
     }
 }

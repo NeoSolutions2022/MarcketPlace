@@ -4,7 +4,11 @@ namespace MarcketPlace.Application.Dtos.V1.ProdutoServico;
 
 public class CadastrarProdutoServicoDto
 {
-    public List<IFormFile> Fotos { get; set; } = null!;
+    public IFormFile Foto { get; set; } = null!;
+    public IFormFile? Foto2 { get; set; }
+    public IFormFile? Foto3 { get; set; }
+    public IFormFile? Foto4 { get; set; }
+    public IFormFile? Foto5 { get; set; }
     public string Titulo { get; set; } = null!;
     public string Descricao { get; set; } = null!;
     public bool Desativado { get; set; }
