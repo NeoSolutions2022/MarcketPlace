@@ -88,12 +88,6 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             return null;
         }
 
-        string? foto1 = produtoServico.Foto;
-        string? foto2 = produtoServico.Foto2;
-        string? foto3 = produtoServico.Foto3;
-        string? foto4 = produtoServico.Foto4;
-        string? foto5 = produtoServico.Foto5;
-
         Mapper.Map(dto, produtoServico);
 
         if (dto.Foto is { Length : > 0 })
@@ -102,7 +96,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
         else
         {
-            produtoServico.Foto = foto1;
+            produtoServico.Foto = null;
         }
 
         if (dto.Foto2 is { Length : > 0 })
@@ -111,7 +105,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
         else
         {
-            produtoServico.Foto2 = foto2;
+            produtoServico.Foto2 = null;
         }
 
         if (dto.Foto3 is { Length : > 0 })
@@ -120,7 +114,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
         else
         {
-            produtoServico.Foto3 = foto3;
+            produtoServico.Foto3 = null;
         }
 
         if (dto.Foto4 is { Length : > 0 })
@@ -129,7 +123,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
         else
         {
-            produtoServico.Foto4 = foto4;
+            produtoServico.Foto4 = null;
         }
 
         if (dto.Foto5 is { Length : > 0 })
@@ -138,7 +132,7 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
         }
         else
         {
-            produtoServico.Foto5 = foto5;
+            produtoServico.Foto5 = null;
         }
         
         if (!await Validar(produtoServico))
