@@ -62,7 +62,7 @@ public class ProdutosServicoController : MainController
     [ClaimsAuthorize("Fornecedor", ETipoUsuario.Fornecedor)]
     [ProducesResponseType(typeof(ProdutoServicoDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UnauthorizedObjectResult), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Alterar(int id, [FromBody] AlterarProdutoServicoDto dto)
+    public async Task<IActionResult> Alterar(int id, [FromForm] AlterarProdutoServicoDto dto)
     {
         var produtoServico = await _produtoServicoService.Alterar(id, dto);
         return OkResponse(produtoServico);

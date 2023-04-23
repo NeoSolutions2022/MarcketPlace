@@ -88,7 +88,59 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             return null;
         }
 
+        string? foto1 = produtoServico.Foto;
+        string? foto2 = produtoServico.Foto2;
+        string? foto3 = produtoServico.Foto3;
+        string? foto4 = produtoServico.Foto4;
+        string? foto5 = produtoServico.Foto5;
+
         Mapper.Map(dto, produtoServico);
+
+        if (dto.Foto is { Length : > 0 })
+        {
+            produtoServico.Foto = await _fileService.Upload(dto.Foto, EUploadPath.FotoProdutoServico);
+        }
+        else
+        {
+            produtoServico.Foto = foto1;
+        }
+
+        if (dto.Foto2 is { Length : > 0 })
+        {
+            produtoServico.Foto2 = await _fileService.Upload(dto.Foto2, EUploadPath.FotoProdutoServico);
+        }
+        else
+        {
+            produtoServico.Foto2 = foto2;
+        }
+
+        if (dto.Foto3 is { Length : > 0 })
+        {
+            produtoServico.Foto3 = await _fileService.Upload(dto.Foto3, EUploadPath.FotoProdutoServico);
+        }
+        else
+        {
+            produtoServico.Foto3 = foto3;
+        }
+
+        if (dto.Foto4 is { Length : > 0 })
+        {
+            produtoServico.Foto4 = await _fileService.Upload(dto.Foto4, EUploadPath.FotoProdutoServico);
+        }
+        else
+        {
+            produtoServico.Foto4 = foto4;
+        }
+
+        if (dto.Foto5 is { Length : > 0 })
+        {
+            produtoServico.Foto5 = await _fileService.Upload(dto.Foto5, EUploadPath.FotoProdutoServico);
+        }
+        else
+        {
+            produtoServico.Foto5 = foto5;
+        }
+        
         if (!await Validar(produtoServico))
         {
             return null;
