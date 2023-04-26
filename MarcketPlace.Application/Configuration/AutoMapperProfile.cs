@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarcketPlace.Application.Dtos.V1.Base;
+using MarcketPlace.Application.Dtos.V1.ProdutoServico;
 using MarcketPlace.Core.Extensions;
 using MarcketPlace.Domain.Entities;
 using MarcketPlace.Domain.Paginacao;
@@ -80,6 +81,8 @@ public class AutoMapperProfile : Profile
             .ReverseMap();
         CreateMap<ResultadoPaginado<ProdutoServico>, PagedDto<MarcketPlace.Application.Dtos.V1.ProdutoServico.ProdutoServicoDto>>()
             .ReverseMap();
+
+        //CreateMap<ProdutoServico.Caracteristica, ProdutoServicoDto.CaracteristicaDto>().ReverseMap();
 
         #endregion
     }

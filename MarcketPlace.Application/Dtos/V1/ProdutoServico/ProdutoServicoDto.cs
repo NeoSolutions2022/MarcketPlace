@@ -17,5 +17,12 @@ public class ProdutoServicoDto
     public bool Desativado { get; set; }
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
+    public List<CaracteristicaDto>? Caracteristicas { get; set; }
     public FornecedorDto? Fornecedor { get; set; }
+    
+    public class CaracteristicaDto
+    {
+        public string? Chave { get; set; }
+        public string? Valor { get; set; }
+    }
 }
