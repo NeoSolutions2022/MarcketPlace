@@ -15,5 +15,4 @@ public class CadastrarProdutoServicoDto
     public double PrecoDesconto { get; set; }
     public bool Desativado { get; set; }
     public string Categoria { get; set; } = null!;
-    public List<ProdutoServicoDto.CaracteristicaDto>? Caracteristicas { get; set; }
 }

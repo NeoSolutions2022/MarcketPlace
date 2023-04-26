@@ -81,9 +81,7 @@ public class AutoMapperProfile : Profile
             .ReverseMap();
         CreateMap<ResultadoPaginado<ProdutoServico>, PagedDto<MarcketPlace.Application.Dtos.V1.ProdutoServico.ProdutoServicoDto>>()
             .ReverseMap();
-
-        //CreateMap<ProdutoServico.Caracteristica, ProdutoServicoDto.CaracteristicaDto>().ReverseMap();
-
+        
         #endregion
     }
 }

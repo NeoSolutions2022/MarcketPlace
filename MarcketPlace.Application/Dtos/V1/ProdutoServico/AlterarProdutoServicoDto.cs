@@ -11,7 +11,6 @@ public class AlterarProdutoServicoDto
     public string Descricao { get; set; } = null!;
     public bool Desativado { get; set; }
     public string Categoria { get; set; } = null!;
-     public List<ProdutoServicoDto.CaracteristicaDto>? Caracteristicas { get; set; }
     public IFormFile? Foto { get; set; }
     public IFormFile? Foto2 { get; set; }
     public IFormFile? Foto3 { get; set; }
