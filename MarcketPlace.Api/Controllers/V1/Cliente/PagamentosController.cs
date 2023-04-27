@@ -26,49 +26,49 @@ public class PagamentosController : MainController
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> AlterarSenha(string tokenDoCartao)
+    public async Task<IActionResult> RealizarPagamento(string tokenDoCartao)
     {
         await _pagamentos.PagarComCartao(tokenDoCartao);
         return OkResponse();
     }
     
-    [HttpPost]
-    public async Task<ActionResult> ReceiveNotification()
-    {
-        using (var reader = new StreamReader(Request.Body))
-        {
-            string json = reader.ReadToEnd();
-            JObject notification = JObject.Parse(json);
-            string clientSecret = "SEU_CLIENT_SECRET"; 
-            // MPWebhook webhook = new MPWebhook();
-            bool isNotificationValid = true;
-                // WebhookUtils.Validate(notification, clientSecret);
-            string paymentId = notification["data"]["id"].ToString();
-            var payment = ;
-            if (isNotificationValid)
-            {
-                MercadoPagoConfig.AccessToken = "SEU_ACCESS_TOKEN"; // Substitua pelo seu próprio token de acesso
-                
-                if (payment != null)
-                {
-                    switch (payment.Status)
-                    {
-                        case PaymentStatus.approved:
-                            // Atualize o status da transação em seu banco de dados para "aprovado"
-                            break;
-                        case PaymentStatus.pending:
-                            // Atualize o status da transação em seu banco de dados para "pendente"
-                            break;
-                        case PaymentStatus.rejected:
-                            // Atualize o status da transação em seu banco de dados para "rejeitado"
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-        return Ok();
-    }
+    // [HttpPost]
+    // public async Task<ActionResult> ReceiveNotification()
+    // {
+    //     using (var reader = new StreamReader(Request.Body))
+    //     {
+    //         string json = reader.ReadToEnd();
+    //         JObject notification = JObject.Parse(json);
+    //         string clientSecret = "SEU_CLIENT_SECRET"; 
+    //         // MPWebhook webhook = new MPWebhook();
+    //         bool isNotificationValid = true;
+    //             // WebhookUtils.Validate(notification, clientSecret);
+    //         string paymentId = notification["data"]["id"].ToString();
+    //         var payment = ;
+    //         if (isNotificationValid)
+    //         {
+    //             MercadoPagoConfig.AccessToken = "SEU_ACCESS_TOKEN"; // Substitua pelo seu próprio token de acesso
+    //             
+    //             if (payment != null)
+    //             {
+    //                 switch (payment.Status)
+    //                 {
+    //                     case PaymentStatus.approved:
+    //                         // Atualize o status da transação em seu banco de dados para "aprovado"
+    //                         break;
+    //                     case PaymentStatus.pending:
+    //                         // Atualize o status da transação em seu banco de dados para "pendente"
+    //                         break;
+    //                     case PaymentStatus.rejected:
+    //                         // Atualize o status da transação em seu banco de dados para "rejeitado"
+    //                         break;
+    //                     default:
+    //                         break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return Ok();
+    // }
     
 }

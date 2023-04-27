@@ -42,8 +42,8 @@ public class PagamentosService : BaseService, IPagamentosService
         var request = new PaymentCreateRequest
         {
             TransactionAmount = (decimal)1.0,
-            Token = "CARD_TOKEN",
-            Description = "Payment description",
+            Token = token,
+            Description = "Assinatura Mundo Web",
             Installments = 1,
             PaymentMethodId = "visa",
             Payer = new PaymentPayerRequest
