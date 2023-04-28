@@ -285,10 +285,11 @@ public class ProdutoServicoService : BaseService, IProdutoServicoService
             Notificator.HandleNotFoundResource();
             return;
         }
-
+        
+        
+        _produtoServicoRepository.Remover(produtoServico);
         if (await _produtoServicoRepository.UnitOfWork.Commit())
         {
-            _produtoServicoRepository.Remover(produtoServico);
             return;
         }
 
