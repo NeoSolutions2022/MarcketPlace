@@ -27,18 +27,21 @@ public class ProdutoServicoRepository : Repository<ProdutoServico>, IProdutoServ
     {
         return await Context.ProdutoServicos
             .Include(c => c.Fornecedor)
+            .Include(c => c.ProdutoServicoCaracteristicas)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
     public async Task<IResultadoPaginado<ProdutoServico>> Buscar(IBuscaPaginada<ProdutoServico> filtro)
     {
         var query = Context.ProdutoServicos
             .Include(c => c.Fornecedor)
+            .Include(c => c.ProdutoServicoCaracteristicas)
             .AsQueryable();
         return await base.Buscar(query, filtro);
     }
 
     public void Remover(ProdutoServico produtoServico)
     {
+        Context.ProdutoServicoCaracteristicas.RemoveRange(produtoServico.ProdutoServicoCaracteristicas);
         Context.ProdutoServicos.Remove(produtoServico);
     }
 }

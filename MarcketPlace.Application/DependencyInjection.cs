@@ -46,6 +46,7 @@ public static class DependencyInjection
         services
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<IProdutoServicoService, ProdutoServicoService>()
+            .AddScoped<IProdutoServicoCaracteristicaService, ProdutoServicoCaracteristicaService>()
             .AddScoped<IFileService, FileService>()
             .AddScoped<IFornecedorAuthService, FornecedorAuthService>()
             .AddScoped<IClienteAuthService, ClienteAuthService>()

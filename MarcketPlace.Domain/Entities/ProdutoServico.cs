@@ -20,6 +20,7 @@ public class ProdutoServico : Entity, IAggregateRoot, ISoftDelete, IAnunciavel
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
     public Fornecedor Fornecedor { get; set; } = null!;
+    public List<ProdutoServicoCaracteristica> ProdutoServicoCaracteristicas { get; set; } = new();
 
     public bool AnuncioPago { get; set; }
     public DateTime? DataPagamentoAnuncio { get; set; }

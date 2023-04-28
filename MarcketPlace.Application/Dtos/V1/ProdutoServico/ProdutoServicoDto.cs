@@ -1,4 +1,5 @@
 using MarcketPlace.Application.Dtos.V1.Fornecedor;
+using MarcketPlace.Application.Dtos.V1.ProdutoServico.ProdutoServicoCaracteristica;
 
 namespace MarcketPlace.Application.Dtos.V1.ProdutoServico;
 
@@ -18,4 +19,5 @@ public class ProdutoServicoDto
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
     public FornecedorDto? Fornecedor { get; set; }
+    public List<ProdutoServicoCaracteristicaDto> ProdutoServicoCaracteristicas { get; set; } = new();
 }
