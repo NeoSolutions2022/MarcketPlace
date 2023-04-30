@@ -19,6 +19,7 @@ public class ProdutoServico : Entity, IAggregateRoot, ISoftDelete, IAnunciavel
     public bool Desativado { get; set; }
     public int FornecedorId { get; set; }
     public string Categoria { get; set; } = null!;
+    public string? Caracteristica { get; set; }
     public Fornecedor Fornecedor { get; set; } = null!;
     public List<ProdutoServicoCaracteristica> ProdutoServicoCaracteristicas { get; set; } = new();
 
