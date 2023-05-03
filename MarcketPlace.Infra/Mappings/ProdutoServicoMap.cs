@@ -48,5 +48,8 @@ public class ProdutoServicoMap : IEntityTypeConfiguration<ProdutoServico>
         builder
             .Property(c => c.Categoria)
             .IsRequired();
+
+        builder.Property(c => c.Caracteristica)
+            .HasMaxLength(8000);
     }
 }

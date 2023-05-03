@@ -22,6 +22,7 @@ public abstract class BaseApplicationDbContext : DbContext, IUnitOfWork
     public DbSet<Cliente> Clientes { get; set; } = null!;
     public DbSet<Fornecedor> Fornecedores { get; set; } = null!;
     public DbSet<ProdutoServico> ProdutoServicos { get; set; } = null!;
+    public DbSet<ProdutoServicoCaracteristica> ProdutoServicoCaracteristicas { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -45,6 +45,7 @@ public static class DependencyInjection
             .AddScoped<IClienteRepository,ClienteRepository>()
             .AddScoped<IFornecedorRepository, FornecedorRepository>()
             .AddScoped<IAdministradorRepository, AdministradorRepository>()
+            .AddScoped<IProdutoServicoCaracteristicaRepository, ProdutoServicoCaracteristicaRepository>()
             .AddScoped<IProdutoServicoRepository, ProdutoServicoRepository>();
     }
 
